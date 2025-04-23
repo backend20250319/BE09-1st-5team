@@ -1,4 +1,4 @@
-package com.pizza.pizzahut.user.login.dto;
+package com.pizza.pizzahut.user.sighup.dto;
 
 
 public class UserDTO {

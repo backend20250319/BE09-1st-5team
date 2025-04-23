@@ -1,4 +1,4 @@
-package com.pizza.pizzahut.user.login;
+package com.pizza.pizzahut.user.signup;
 
 import java.util.HashMap;
 import java.util.Scanner;

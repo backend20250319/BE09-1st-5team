@@ -1,8 +1,7 @@
-package com.pizza.pizzahut.user.login.view;
+package com.pizza.pizzahut.user.sighup.view;
 
-import com.pizza.pizzahut.user.login.controller.LoginController;
+import com.pizza.pizzahut.user.sighup.controller.LoginController;
 
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class LoginView {
@@ -13,7 +12,7 @@ public class LoginView {
         System.out.print("피자~헛 회원가입 하시겠습니까?(y/n) : ");
         char who = sc.next().charAt(0);
         sc.nextLine();
-
+        
         if (who == 'y') {
             System.out.print("사용하실 아이디: ");
             String id = sc.nextLine();
@@ -22,7 +21,7 @@ public class LoginView {
             System.out.print("이름: ");
             String name = sc.nextLine();
             controller.register(id, pw, name);
-
+            System.out.println("비밀번호를 잘못 입력하셨다면 수정하실 수 있습니다.");
             System.out.print("비밀번호 수정하시겠습니까? (y/n) : ");
             char edit = sc.next().charAt(0);
             sc.nextLine();
@@ -32,8 +31,8 @@ public class LoginView {
                 System.out.println(name + "님의 비밀번호가 새롭게 설정 되었습니다.");
                 controller.changePassword(id, newPw);
             }
-            System.out.println("회원가입을 축하합니다.");
         }
+            System.out.println("회원가입을 축하합니다.");
 
         System.out.println("=============== 로그인 ================");
       while (true) {

@@ -1,7 +1,7 @@
 package com.pizza.pizzahut.run;
 
 import com.pizza.pizzahut.main.view.PizzaMenu;
-import com.pizza.pizzahut.user.login.view.LoginView;
+import com.pizza.pizzahut.user.sighup.view.LoginView;
 
 public class Application {
 

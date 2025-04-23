@@ -1,7 +1,7 @@
-package com.pizza.pizzahut.user.login.service;
+package com.pizza.pizzahut.user.sighup.service;
 
-import com.pizza.pizzahut.user.login.dao.LoginRepository;
-import com.pizza.pizzahut.user.login.dto.UserDTO;
+import com.pizza.pizzahut.user.sighup.dao.LoginRepository;
+import com.pizza.pizzahut.user.sighup.dto.UserDTO;
 
 public class LoginService {
 
