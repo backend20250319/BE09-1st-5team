@@ -19,17 +19,16 @@ public class SideMenuView {
                 ======================
                 번호를 입력하세요: """;
 
-        switch (true) {
-            System.out.print(start);
-            int startNum = sc.nextInt();
-
-            case 1:
-                break;
-            case 2: break;
-            case 3: break;
-            case 4: break;
-            case 5: break;
-        }
+//        switch (true) {
+//            System.out.print(start);
+//            int startNum = sc.nextInt();
+//            case 1:
+//                break;
+//            case 2: break;
+//            case 3: break;
+//            case 4: break;
+//            case 5: break;
+//        }
 
         System.out.println("번호를 잘못 입력하셨습니다.");
 
