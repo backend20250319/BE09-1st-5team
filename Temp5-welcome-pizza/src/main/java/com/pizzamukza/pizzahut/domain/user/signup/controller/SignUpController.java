@@ -21,7 +21,8 @@ public class SignUpController {
     }
 
     public String getName(String id) {
-        SignUpDTO user = service.getUser(id);
-        return user != null ? user.getName() : null;
+//        SignUpDTO user = service.getUser(id);
+//        return user != null ? user.getName() : null;
+        return null;
     }
 }

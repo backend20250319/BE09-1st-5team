@@ -1,5 +1,6 @@
 package com.pizzamukza.pizzahut.domain.user.signup.view;
 
+import com.pizzamukza.common.UserInfo;
 import com.pizzamukza.pizzahut.domain.user.signup.controller.SignUpController;
 
 import java.util.Scanner;
@@ -69,7 +70,7 @@ public class SignUpView {
             String loginPw = sc.nextLine();
 
             if (controller.login(loginId, loginPw)) {
-                name = controller.getName(loginId);
+                name = UserInfo.info.getName();//controller.getName(loginId);
                 System.out.println("로그인 성공! 어서오세요~ " + name + "님!");
                 break;
             } else {
