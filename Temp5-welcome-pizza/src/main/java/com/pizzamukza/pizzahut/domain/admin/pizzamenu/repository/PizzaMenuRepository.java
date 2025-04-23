@@ -29,7 +29,7 @@ public class PizzaMenuRepository {
   // 피자 가격 수정
 
   // 피자 목록 조회
-  public PizzaMenu getPizzaList() {
+  public List<PizzaMenu> getPizzaList() {
     String sql = prop.getProperty("selectAllPizzaDetails");
     Connection conn = null;
     PreparedStatement pstmt = null;
@@ -50,7 +50,7 @@ public class PizzaMenuRepository {
 
         PizzaMenu pizzaMenu = new PizzaMenu(sizeId, pizzaName, sizeName, price, quantity);
         pizzaMenus.add(pizzaMenu);
-        System.out.println(pizzaMenu);
+//        System.out.println(pizzaMenu);
       }
 
     } catch (SQLException e) {
@@ -61,16 +61,16 @@ public class PizzaMenuRepository {
       try { if (conn != null) conn.close(); } catch (Exception ignored) {}
     }
 
-//    return pizzaMenus;
-    return null;
+    return pizzaMenus;
+//    return null;
   }
 
 
 
-  public static void main(String[] args) {
-    PizzaMenuRepository pizzaMenuRepository = new PizzaMenuRepository();
-    PizzaMenu pizzaMenu = pizzaMenuRepository.getPizzaList();
-
-  }
+//  public static void main(String[] args) {
+//    PizzaMenuRepository pizzaMenuRepository = new PizzaMenuRepository();
+//    List<PizzaMenu> pizzaMenu = pizzaMenuRepository.getPizzaList();
+//
+//  }
 
 }
