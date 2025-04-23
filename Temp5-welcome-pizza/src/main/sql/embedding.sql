@@ -49,3 +49,4 @@ INSERT INTO tbl_size (sizeName, price, pizzaId) VALUES
                                                     ('라지', 36900, 5),
                                                     ('미디움', 29500, 6),
                                                     ('라지', 34900, 6);
+# DELETE FROM tbl_size;
