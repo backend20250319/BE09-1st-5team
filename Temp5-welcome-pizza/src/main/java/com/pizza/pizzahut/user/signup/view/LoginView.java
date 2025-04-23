@@ -1,8 +1,7 @@
-package com.pizza.pizzahut.user.sighup.view;
+package com.pizza.pizzahut.user.signup.view;
 
 import com.pizza.pizzahut.user.sighup.controller.LoginController;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class LoginView {

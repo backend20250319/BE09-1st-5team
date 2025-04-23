@@ -1,7 +1,8 @@
-package com.pizza.pizzahut.user.sighup.controller;
+package com.pizza.pizzahut.user.signup.controller;
 
-import com.pizza.pizzahut.user.sighup.dto.UserDTO;
-import com.pizza.pizzahut.user.sighup.service.LoginService;
+
+import com.pizza.pizzahut.user.signup.dto.UserDTO;
+import com.pizza.pizzahut.user.signup.service.LoginService;
 
 public class LoginController {
 

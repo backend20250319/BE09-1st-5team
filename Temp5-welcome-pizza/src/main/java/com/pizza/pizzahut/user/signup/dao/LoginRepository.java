@@ -1,6 +1,7 @@
 package com.pizza.pizzahut.user.signup.dao;
 
-import com.pizza.pizzahut.user.sighup.dto.UserDTO;
+
+import com.pizza.pizzahut.user.signup.dto.UserDTO;
 
 import java.util.HashMap;
 import java.util.Map;
