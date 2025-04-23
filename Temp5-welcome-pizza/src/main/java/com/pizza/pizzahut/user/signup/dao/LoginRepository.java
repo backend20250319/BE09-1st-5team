@@ -1,4 +1,4 @@
-package com.pizza.pizzahut.user.sighup.dao;
+package com.pizza.pizzahut.user.signup.dao;
 
 import com.pizza.pizzahut.user.sighup.dto.UserDTO;
 
