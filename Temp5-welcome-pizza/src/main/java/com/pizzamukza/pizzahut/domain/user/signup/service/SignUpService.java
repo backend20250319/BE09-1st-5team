@@ -24,8 +24,6 @@ public class SignUpService {
         }
 
         close(con);
-
-        //SignUpDTO.save(user);
     }
 
     public boolean authenticate(String id, String password) {
@@ -38,26 +36,15 @@ public class SignUpService {
 
         close(con);
         return user != null && user.getPassword().equals(password);
-      //  return false;//user != null && user.getPassword().equals(password);
     }
 
     public void updatePassword(String id, String Password) {
-//        SignUpDTO user = SignUpDTO.findByUsername(id);
-//        if (user != null) {
-//            user.setPassword(newPassword);
-//            SignUpDTO.save(user); // 갱신 저장
-//        }
+
         Connection con = getConnection();
+
         signUpRepository.updatePassword(con, id, Password);
         commit(con);
         close(con);
     }
 
-//    public SignUpDTO getUser(String id) {
-//        Connection con = getConnection();
-//        SignUpDTO user = signUpRepository.findByUsername(con, id);
-//        close(con);
-//        return user;
-//       // return null;//SignUpDTO.findByUsername(id);
-//    }
 }

@@ -1,15 +1,11 @@
 package com.pizzamukza.pizzahut.domain.user.signup.repository;
 
-import com.pizzamukza.common.JDBCTemplate;
 import com.pizzamukza.pizzahut.domain.user.signup.dto.SignUpDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
 
 import static com.pizzamukza.common.JDBCTemplate.close;
 
@@ -79,10 +75,7 @@ public class SignUpRepository {
             close(pstmt);
         }
     }
-//    public void save(SignUpDTO user) {
-//        tbl_member.put(user.getId(), user);
-//        System.out.println("✅ [tbl_member]에 저장 완료: " + user.getId());
-//    }
+
 
     public SignUpDTO findByUsername(String username) {
         return null;
