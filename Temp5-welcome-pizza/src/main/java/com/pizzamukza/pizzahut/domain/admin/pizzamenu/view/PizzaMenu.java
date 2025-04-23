@@ -1,6 +1,6 @@
-package com.pizza.pizzahut.main.view;
+package com.pizzamukza.pizzahut.domain.admin.pizzamenu.view;
 
-import com.pizza.pizzahut.user.login.view.LoginView;
+import com.pizzamukza.pizzahut.domain.user.signup.view.LoginView;
 
 import java.util.Scanner;
 
