@@ -3,6 +3,18 @@ package com.pizzamukza.common;
 import java.util.Scanner;
 
     public class CommonMenuView {
+        public static final String USER_MENU  = """
+            ===== 사용자 메뉴 =====
+            1. 주문하기
+            2. 비밀번호 수정
+            0. 이전 메뉴 돌아가기 (로그아웃)
+            =====================
+            번호를 입력하세요: """;
+
+        // 로그인 상태 관리를 위해 가지고 다닐 변수들
+        // null이면 로그아웃상태, null이 아니면 로그인 상태
+        public static String username = null;
+        public static String password = null;
 
         // 초기 메인 화면
         public static void printMainMenu() {
