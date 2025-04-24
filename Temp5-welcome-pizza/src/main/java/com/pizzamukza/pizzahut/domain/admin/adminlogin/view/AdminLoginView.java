@@ -1,8 +1,8 @@
 package com.pizzamukza.pizzahut.domain.admin.adminlogin.view;
 
 import com.pizzamukza.common.CommonMenuView;
-import com.pizzamukza.pizzahut.domain.admin.adminlogin.pizzamenu.view.PizzaMenuView;
 import com.pizzamukza.pizzahut.domain.admin.adminlogin.service.AdminLoginService;
+import com.pizzamukza.pizzahut.domain.admin.pizzamenu.view.PizzaMenuView;
 
 import java.util.Scanner;
 
@@ -39,7 +39,7 @@ public class AdminLoginView {
 
         if (loginService.login(adminId, adminPwd)) {
             System.out.println("✅ 로그인 성공! 관리자 메뉴로 이동합니다.");
-            PizzaMenuView.pizzaMenu();
+            pizzaMenu.pizzaMenuMainView();
         } else {
             System.out.println("❌ 로그인 실패! 아이디 또는 비밀번호가 틀렸습니다.");
         }

@@ -10,6 +10,9 @@ public class PizzaMenu {
         this.quantity = quantity;
     }
 
+    public PizzaMenu() {
+    }
+
     public int getPizzaId() {
         return pizzaId;
     }
@@ -33,4 +36,9 @@ public class PizzaMenu {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+//    @Override
+//    public String toString() {
+//        return String.format("%2d. %-18s | 수량 : %d", pizzaId, pizzaName, quantity);
+//    }
 }

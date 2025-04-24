@@ -4,12 +4,20 @@ import com.pizzamukza.pizzahut.domain.admin.pizzamenu.dto.PizzaMenu;
 import com.pizzamukza.pizzahut.domain.admin.pizzamenu.repository.PizzaMenuRepository;
 
 import java.sql.Connection;
+import java.util.List;
 
 import static com.pizzamukza.common.JDBCTemplate.*;
 
 public class PizzaMenuService {
 
     private final PizzaMenuRepository repository = new PizzaMenuRepository();
+
+    public List<PizzaMenu> pizzaAllList() {
+        Connection con = getConnection();
+        List<PizzaMenu> pizzaList = repository.pizzaAllList(con);
+        close(con);
+        return pizzaList;
+    }
 
     public boolean registerNewPizza(PizzaMenu pizza) {
         Connection con = getConnection();

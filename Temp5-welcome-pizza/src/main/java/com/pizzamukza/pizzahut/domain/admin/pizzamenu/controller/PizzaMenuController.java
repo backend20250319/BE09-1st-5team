@@ -3,9 +3,16 @@ package com.pizzamukza.pizzahut.domain.admin.pizzamenu.controller;
 import com.pizzamukza.pizzahut.domain.admin.pizzamenu.dto.PizzaMenu;
 import com.pizzamukza.pizzahut.domain.admin.pizzamenu.service.PizzaMenuService;
 
+import java.util.List;
+
 public class PizzaMenuController {
 
     private static final PizzaMenuService service = new PizzaMenuService();
+
+    public List<PizzaMenu> getAllPizzas() {
+        return service.pizzaAllList();
+    }
+
 
     public static void addNewPizza(PizzaMenu pizza) {
         boolean result = service.registerNewPizza(pizza);
