@@ -1,24 +1,45 @@
 package com.pizzamukza.pizzahut.domain.admin.pizzamenu.dto;
 
 public class PizzaMenu {
-  int id;
-  String pizzaName; // 페퍼로니피자
-  String size; // 미디움, 라지
-  int price;
+    private int pizzaId;
+    private String pizzaName;
+    private int quantity;
 
-  @Override
-  public String toString() {
-    return id + " " + pizzaName + " " + size + " " + price + "원 " + quantity + "개";
-  }
+    public PizzaMenu(String pizzaName, int quantity) {
+        this.pizzaName = pizzaName;
+        this.quantity = quantity;
+    }
 
+    public PizzaMenu() {
+    }
 
-  int quantity; // 가격
+    public int getPizzaId() {
+        return pizzaId;
+    }
 
-  public PizzaMenu(int sizeId, String pizzaName, String sizeName, int price, int quantity) {
-    this.id = sizeId;
-    this.pizzaName = pizzaName;
-    this.size = sizeName;
-    this.price = price;
-    this.quantity = quantity;
-  }
+    public void setPizzaId(int pizzaId) {
+        this.pizzaId = pizzaId;
+    }
+
+    public String getPizzaName() {
+        return pizzaName;
+    }
+
+    public void setPizzaName(String pizzaName) {
+        this.pizzaName = pizzaName;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+//    @Override
+//    public String toString() {
+//        return String.format("%2d. %-18s | 수량 : %d", pizzaId, pizzaName, quantity);
+//    }
+
 }
