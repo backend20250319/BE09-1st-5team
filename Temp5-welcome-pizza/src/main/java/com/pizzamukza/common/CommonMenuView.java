@@ -46,7 +46,7 @@ import java.util.Scanner;
             System.out.print("번호를 입력하세요: ");
         }
 
-        // 사용자 메뉴 화면
+        // 사용자 초기 메뉴 화면
         public static void printUserMenu() {
             System.out.println("===== 사용자 메뉴 =====");
             System.out.println("1. 회원가입");
