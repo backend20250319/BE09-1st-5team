@@ -1,24 +1,26 @@
 package com.pizzamukza.pizzahut.domain.admin.sidemenu.dto;
 
-import com.pizzamukza.pizzahut.domain.admin.pizzamenu.dto.PizzaMenu;
-
-public class SideMenu {
+public class SideMenuDTO {
 
     private int sideId;
     private String sideName;
     private int price;
     private int quantity;
 
-    public SideMenu() {
+    public SideMenuDTO() {
     }
 
-    public SideMenu(String sideName, int price, int quantity) {
+    public SideMenuDTO(int sideId) {
+        this.sideId = sideId;
+    }
+
+    public SideMenuDTO(String sideName, int price, int quantity) {
         this.sideName = sideName;
         this.price = price;
         this.quantity = quantity;
     }
 
-    public SideMenu(int sideId, String sideName, int price, int quantity) {
+    public SideMenuDTO(int sideId, String sideName, int price, int quantity) {
         this.sideId = sideId;
         this.sideName = sideName;
         this.price = price;

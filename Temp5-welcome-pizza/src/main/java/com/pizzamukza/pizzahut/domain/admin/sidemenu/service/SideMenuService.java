@@ -1,6 +1,6 @@
 package com.pizzamukza.pizzahut.domain.admin.sidemenu.service;
 
-import com.pizzamukza.pizzahut.domain.admin.sidemenu.dto.SideMenu;
+import com.pizzamukza.pizzahut.domain.admin.sidemenu.dto.SideMenuDTO;
 import com.pizzamukza.pizzahut.domain.admin.sidemenu.repository.SideMenuRepository;
 
 import java.sql.Connection;
@@ -16,9 +16,9 @@ public class SideMenuService {
         smr = new SideMenuRepository();
     }
 
-    public List<SideMenu> sideAllList() {
+    public List<SideMenuDTO> sideAllList() {
         Connection con = getConnection();
-        List<SideMenu> sideList = smr.selectAllSideMenu(con);
+        List<SideMenuDTO> sideList = smr.selectAllSideMenu(con);
         close(con);
         return sideList;
     }
@@ -27,9 +27,9 @@ public class SideMenuService {
 
         Connection con = getConnection();
 
-        List<SideMenu> sideMenuList = SideMenuRepository.selectAllSideMenu(con);
+        List<SideMenuDTO> sideMenuDTOList = SideMenuRepository.selectAllSideMenu(con);
 
-        for(SideMenu sm : sideMenuList) {
+        for(SideMenuDTO sm : sideMenuDTOList) {
             System.out.println(sm);
         }
 
@@ -37,7 +37,7 @@ public class SideMenuService {
 
     }
 
-    public boolean registerSideMenu(SideMenu side) {
+    public boolean registerSideMenu(SideMenuDTO side) {
         Connection con = getConnection();
 
         int result = smr.insertSideMenu(con, side);
@@ -117,6 +117,13 @@ public class SideMenuService {
         } finally {
             close(con);
         }
+    }
+
+    public SideMenuDTO findSideMenuById(int sideId) {
+        Connection con = getConnection();
+        SideMenuDTO result = smr.selectSideById(con, sideId);
+        close(con);
+        return result;
     }
 }
 

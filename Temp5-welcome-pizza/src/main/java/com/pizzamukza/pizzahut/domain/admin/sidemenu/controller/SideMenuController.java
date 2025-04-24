@@ -1,6 +1,6 @@
 package com.pizzamukza.pizzahut.domain.admin.sidemenu.controller;
 
-import com.pizzamukza.pizzahut.domain.admin.sidemenu.dto.SideMenu;
+import com.pizzamukza.pizzahut.domain.admin.sidemenu.dto.SideMenuDTO;
 import com.pizzamukza.pizzahut.domain.admin.sidemenu.service.SideMenuService;
 
 import java.util.List;
@@ -9,11 +9,11 @@ public class SideMenuController {
 
     private static final SideMenuService sms = new SideMenuService();
 
-    public List<SideMenu> getAllSides() {
+    public List<SideMenuDTO> getAllSides() {
         return sms.sideAllList();
     }
 
-    public void addNewSideMenu(SideMenu side) {
+    public void addNewSideMenu(SideMenuDTO side) {
         boolean result = sms.registerSideMenu(side);
 
         if (result) {
@@ -37,5 +37,9 @@ public class SideMenuController {
 
     public void updateSideMenu(String sideName, int modify) {
         sms.updateSideMenu(sideName, modify);
+    }
+
+    public SideMenuDTO getSideById(int sideId) {
+        return sms.findSideMenuById(sideId);
     }
 }

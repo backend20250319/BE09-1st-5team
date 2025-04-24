@@ -11,12 +11,12 @@ import java.util.Scanner;
 import static com.pizzamukza.common.CommonMenuView.username;
 
 public class SignUpView {
-    private Scanner sc = new Scanner(System.in);
-    private SignUpController controller = new SignUpController();
+    private static SignUpController controller = new SignUpController();
+    static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
         new SignUpView().start();
-        new SignUpView().edit();
+        new SignUpView().displayUserMenu();
 
     }
 
@@ -48,10 +48,10 @@ public class SignUpView {
         String pw = "";
         String name = "";
         while (true) {
-            System.out.print("===== 회원가입 하시겠습니까?(y/n)===== : ");
+            System.out.print("===== 회원가입 하시겠습니까?(Y/N)===== : ");
             char who = sc.next().charAt(0);
             sc.nextLine();
-            if (who == 'y') {
+            if (who == 'Y') {
                 System.out.print("아이디를 입력하세요 : ");
                 username = sc.nextLine();
                 System.out.print("비밀번호를 입력하세요 : ");
@@ -60,7 +60,7 @@ public class SignUpView {
                 name = sc.nextLine();
                 controller.register(username, pw, name);
                 break;
-            } else if (who == 'n') {
+            } else if (who == 'N') {
                 System.out.println("아쉽네요");
                 break;
             } else {
@@ -92,7 +92,7 @@ public class SignUpView {
         }
     }
 
-    private void logout() {
+    private static void logout() {
         if (UserInfo.info != null) {
             System.out.println(UserInfo.info.getName() + " 님 ✅ 로그아웃 되었습니다. 메인 메뉴로 돌아갑니다.");
             UserInfo.info = null;
@@ -102,7 +102,7 @@ public class SignUpView {
         }
     }
 
-    private void edit() {
+    private static void displayUserMenu() {
         while (true) {
             System.out.println(CommonMenuView.USER_MENU);
             String choice = sc.nextLine();
@@ -111,7 +111,7 @@ public class SignUpView {
 
                     break;
                 case "2":
-                    add();
+                    edit();
                     break;
                 case "0":
                     logout();
@@ -122,21 +122,21 @@ public class SignUpView {
         }
     }
 
-    private void add() {
+    private static void edit() {
         while (true) {
             System.out.println("비밀번호를 잘못 입력하셨다면 수정하실 수 있습니다.");
-            System.out.print("비밀번호 수정하시겠습니까? (y/n) : ");
+            System.out.print("비밀번호 수정하시겠습니까? (Y/N) : ");
             char edit = sc.next().charAt(0);
             sc.nextLine();
-            if (edit == 'y') {
+            if (edit == 'Y') {
                 System.out.print("새 비밀번호: ");
                 String newPw = sc.nextLine();
                 System.out.println(username + "님의 비밀번호가 새롭게 설정 되었습니다.");
                 controller.changePassword(username, newPw);
                 break;
-            } else if (edit == 'n') {
-                System.out.println("로그인 화면으로 이동합니다.");
-                System.out.println("회원가입을 축하합니다.");
+            } else if (edit == 'N') {
+                System.out.println("이전 화면으로 이동합니다.");
+           //     System.out.println("회원가입을 축하합니다.");
                 break;
             } else {
                 System.out.println("장난 치지마세요");
