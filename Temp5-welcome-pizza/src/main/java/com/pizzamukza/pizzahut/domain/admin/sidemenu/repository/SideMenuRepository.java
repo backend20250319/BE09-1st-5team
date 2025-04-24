@@ -1,6 +1,6 @@
 package com.pizzamukza.pizzahut.domain.admin.sidemenu.repository;
 
-import com.pizzamukza.pizzahut.domain.admin.sidemenu.dto.SideMenu;
+import com.pizzamukza.pizzahut.domain.admin.sidemenu.dto.SideMenuDTO;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,11 +10,12 @@ import java.util.List;
 import java.util.Properties;
 
 import static com.pizzamukza.common.JDBCTemplate.close;
-import static com.pizzamukza.common.JDBCTemplate.getConnection;
 
 public class SideMenuRepository {
 
     private static Properties props = new Properties();
+    private static SideMenuDTO sm = new SideMenuDTO();
+
 
     public SideMenuRepository() {
         props = new Properties();
@@ -26,10 +27,10 @@ public class SideMenuRepository {
     }
 
     /* 목록 조회 */
-    public static List<SideMenu> selectAllSideMenu(Connection con) {
+    public static List<SideMenuDTO> selectAllSideMenu(Connection con) {
         Statement stmt = null;
         ResultSet rset = null;
-        List<SideMenu> sideMenus = new ArrayList<>();
+        List<SideMenuDTO> sideMenuDTOS = new ArrayList<>();
 
         String query = "SELECT * FROM tbl_side_menu";
         System.out.println("query = " + query);
@@ -39,12 +40,11 @@ public class SideMenuRepository {
             rset = stmt.executeQuery(query);
 
             while (rset.next()) {
-                SideMenu sm = new SideMenu();
                 sm.setSideId(rset.getInt("sideId"));
                 sm.setSideName(rset.getString("sideName"));
                 sm.setPrice(rset.getInt("price"));
                 sm.setQuantity(rset.getInt("quantity"));
-                sideMenus.add(sm);
+                sideMenuDTOS.add(sm);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -54,11 +54,11 @@ public class SideMenuRepository {
             close(con);
         }
 
-        return sideMenus;
+        return sideMenuDTOS;
 
     }
 
-    public int insertSideMenu(Connection con, SideMenu side) {
+    public int insertSideMenu(Connection con, SideMenuDTO side) {
         PreparedStatement pstmt = null;
         int result = 0;
         String sql = props.getProperty("insertSideMenu");
@@ -158,4 +158,67 @@ public class SideMenuRepository {
 
         return result;
     }
+
+    public SideMenuDTO selectSideById(Connection con, int sideId) {
+        SideMenuDTO side = null;
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+
+        String query = props.getProperty("selectSideById");
+
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, sideId);
+            rset = pstmt.executeQuery();
+
+            if (rset.next()) {
+                side = new SideMenuDTO();
+                side.setSideName(rset.getString("sideName"));
+                side.setQuantity(rset.getInt("quantity"));
+                side.setPrice(rset.getInt("price"));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(rset);
+            close(pstmt);
+        }
+
+        return side;
+    }
+
+
+//    /* 목록 조회 */
+//    public static List<SideMenuDTO> selectAllSideMenu(Connection con) {
+//        Statement stmt = null;
+//        ResultSet rset = null;
+//        List<SideMenuDTO> sideMenuDTOS = new ArrayList<>();
+//
+//        String query = "SELECT * FROM tbl_side_menu";
+//        System.out.println("query = " + query);
+//
+//        try {
+//            stmt = con.createStatement();
+//            rset = stmt.executeQuery(query);
+//
+//            while (rset.next()) {
+//                SideMenuDTO sm = new SideMenuDTO();
+//                sm.setSideId(rset.getInt("sideId"));
+//                sm.setSideName(rset.getString("sideName"));
+//                sm.setPrice(rset.getInt("price"));
+//                sm.setQuantity(rset.getInt("quantity"));
+//                sideMenuDTOS.add(sm);
+//            }
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        } finally {
+//            close(rset);
+//            close(stmt);
+//            close(con);
+//        }
+//
+//        return sideMenuDTOS;
+//
+//    }
 }

@@ -58,4 +58,10 @@
         WHERE sideName = ?
     </entry>
 
+    <!-- 사이드 id를 입력했을 때, sideName, price, quantity -->
+    <entry key="selectSideById">
+        SELECT sideName, price, quantity
+        FROM tbl_side_menu
+        WHERE sideId = ?
+    </entry>
 </properties>

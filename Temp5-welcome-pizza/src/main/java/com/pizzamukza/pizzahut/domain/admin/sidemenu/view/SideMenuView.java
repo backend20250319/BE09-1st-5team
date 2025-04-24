@@ -2,10 +2,10 @@ package com.pizzamukza.pizzahut.domain.admin.sidemenu.view;
 
 import com.pizzamukza.common.CommonMenuView;
 import com.pizzamukza.pizzahut.domain.admin.sidemenu.controller.SideMenuController;
-import com.pizzamukza.pizzahut.domain.admin.sidemenu.dto.SideMenu;
+import com.pizzamukza.pizzahut.domain.admin.sidemenu.dto.SideMenuDTO;
+import com.pizzamukza.pizzahut.domain.admin.sidemenu.repository.SideMenuRepository;
 import com.pizzamukza.pizzahut.domain.admin.sidemenu.service.SideMenuService;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -87,11 +87,11 @@ public class SideMenuView {
 
     /* 사이드 목록조회 */
     public static void showSideMenuList() {
-        List<SideMenu> sideList = smc.getAllSides();
+        List<SideMenuDTO> sideList = smc.getAllSides();
 
         System.out.println("\n🍟 현재 판매중인 사이드 목록 🍟");
         System.out.println("=".repeat(30));
-        for (SideMenu side : sideList) {
+        for (SideMenuDTO side : sideList) {
             System.out.printf("🍟 %-15s | 수량: %2d | 가격: %3d원\n", side.getSideName(), side.getQuantity(), side.getPrice());
         }
         System.out.println("=".repeat(30));
@@ -112,8 +112,8 @@ public class SideMenuView {
         int price = sc.nextInt();
         sc.nextLine();  // 개행 제거
 
-        SideMenu newSideMenu = new SideMenu(sideName, quantity, price);
-        smc.addNewSideMenu(newSideMenu);
+        SideMenuDTO newSideMenuDTO = new SideMenuDTO(sideName, quantity, price);
+        smc.addNewSideMenu(newSideMenuDTO);
     }
 
 
@@ -168,4 +168,25 @@ public class SideMenuView {
 
         smc.updateSideMenu(sideName, modify);
     }
+
+    /* 입력 : sideID, 출력 : sideName, quantity, price */
+    public static void showSideMenuById() {
+        System.out.print("🔍 조회할 사이드 ID를 입력하세요: ");
+        int sideId = sc.nextInt();
+        sc.nextLine(); // 개행 제거
+
+        SideMenuDTO sideDTO = smc.getSideById(sideId);
+
+        smc.getSideById(sideDTO.getSideId());
+        if (sideDTO != null) {
+            System.out.println("🍟 조회 결과");
+            System.out.println("=".repeat(30));
+            System.out.printf("🍟 %-15s | 수량: %2d | 가격: %3d원\n",
+                    sideDTO.getSideName(), sideDTO.getQuantity(), sideDTO.getPrice());
+            System.out.println("=".repeat(30));
+        } else {
+            System.out.println("⚠️ 해당 ID의 사이드 메뉴가 없습니다.");
+        }
+    }
+
 }
