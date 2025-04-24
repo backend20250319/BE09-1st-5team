@@ -11,8 +11,8 @@ import java.util.Scanner;
 import static com.pizzamukza.common.CommonMenuView.username;
 
 public class SignUpView {
-    private Scanner sc = new Scanner(System.in);
-    private SignUpController controller = new SignUpController();
+    private static SignUpController controller = new SignUpController();
+    static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
         new SignUpView().start();
@@ -92,7 +92,7 @@ public class SignUpView {
         }
     }
 
-    private void logout() {
+    private static void logout() {
         if (UserInfo.info != null) {
             System.out.println(UserInfo.info.getName() + " 님 ✅ 로그아웃 되었습니다. 메인 메뉴로 돌아갑니다.");
             UserInfo.info = null;
@@ -102,7 +102,7 @@ public class SignUpView {
         }
     }
 
-    private void displayUserMenu() {
+    private static void displayUserMenu() {
         while (true) {
             System.out.println(CommonMenuView.USER_MENU);
             String choice = sc.nextLine();
@@ -122,7 +122,7 @@ public class SignUpView {
         }
     }
 
-    private void edit() {
+    private static void edit() {
         while (true) {
             System.out.println("비밀번호를 잘못 입력하셨다면 수정하실 수 있습니다.");
             System.out.print("비밀번호 수정하시겠습니까? (Y/N) : ");
