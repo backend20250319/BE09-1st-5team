@@ -48,10 +48,10 @@ public class SignUpView {
         String pw = "";
         String name = "";
         while (true) {
-            System.out.print("===== 회원가입 하시겠습니까?(y/n)===== : ");
+            System.out.print("===== 회원가입 하시겠습니까?(Y/N)===== : ");
             char who = sc.next().charAt(0);
             sc.nextLine();
-            if (who == 'y') {
+            if (who == 'Y') {
                 System.out.print("아이디를 입력하세요 : ");
                 username = sc.nextLine();
                 System.out.print("비밀번호를 입력하세요 : ");
@@ -60,7 +60,7 @@ public class SignUpView {
                 name = sc.nextLine();
                 controller.register(username, pw, name);
                 break;
-            } else if (who == 'n') {
+            } else if (who == 'N') {
                 System.out.println("아쉽네요");
                 break;
             } else {
@@ -125,16 +125,16 @@ public class SignUpView {
     private void add() {
         while (true) {
             System.out.println("비밀번호를 잘못 입력하셨다면 수정하실 수 있습니다.");
-            System.out.print("비밀번호 수정하시겠습니까? (y/n) : ");
+            System.out.print("비밀번호 수정하시겠습니까? (Y/N) : ");
             char edit = sc.next().charAt(0);
             sc.nextLine();
-            if (edit == 'y') {
+            if (edit == 'Y') {
                 System.out.print("새 비밀번호: ");
                 String newPw = sc.nextLine();
                 System.out.println(username + "님의 비밀번호가 새롭게 설정 되었습니다.");
                 controller.changePassword(username, newPw);
                 break;
-            } else if (edit == 'n') {
+            } else if (edit == 'N') {
                 System.out.println("로그인 화면으로 이동합니다.");
                 System.out.println("회원가입을 축하합니다.");
                 break;
