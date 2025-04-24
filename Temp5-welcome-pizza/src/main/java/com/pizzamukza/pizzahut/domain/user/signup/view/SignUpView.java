@@ -17,7 +17,7 @@ public class SignUpView {
     }
 
 
-    private void start() {
+    public void start() {
         while (true) {
             CommonMenuView.printUserMenu();
             String choice = sc.nextLine();
