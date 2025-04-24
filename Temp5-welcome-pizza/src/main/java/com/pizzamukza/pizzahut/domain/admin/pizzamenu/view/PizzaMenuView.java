@@ -1,7 +1,9 @@
 package com.pizzamukza.pizzahut.domain.admin.pizzamenu.view;
 
 import com.pizzamukza.pizzahut.domain.admin.pizzamenu.controller.PizzaMenuController;
-import com.pizzamukza.pizzahut.domain.admin.pizzamenu.dto.PizzaMenu;
+import com.pizzamukza.pizzahut.domain.admin.pizzamenu.dto.PizzaDTO;
+import com.pizzamukza.pizzahut.domain.admin.pizzamenu.dto.PizzaMenuDTO;
+import com.pizzamukza.pizzahut.domain.admin.pizzamenu.dto.SizeDTO;
 
 import java.util.List;
 import java.util.Scanner;
@@ -11,6 +13,7 @@ public class PizzaMenuView {
     static PizzaMenuController pmc = new PizzaMenuController();
 
     public static void pizzaMenuMainView() {
+
         String adminPizzaMenu = """
                 --- 피자 관리 ---
                 1. 피자 목록 조회
@@ -18,7 +21,6 @@ public class PizzaMenuView {
                 3. 피자 수량 증가
                 4. 피자 수량 감소
                 5. 피자 품절
-                6. 피자 가격 수정
                 0. 이전 메뉴로 돌아가기
                 ==================
                 번호를 입력하세요: """;
@@ -45,10 +47,6 @@ public class PizzaMenuView {
                 case 5:
                     deletePizzaView();
                     break;
-                case 6:
-                    // 가격 수정은 없지 않나...?
-                    //updatePrice();
-                    break;
                 case 0:
                     System.out.println("이전 메뉴로 돌아갑니다.");
                     break;
@@ -59,16 +57,19 @@ public class PizzaMenuView {
         } while (choice != 0);
     }
 
-
     private static void showPizzaMenuList() {
-        List<PizzaMenu> pizzaList = pmc.getAllPizzas();
+        List<PizzaDTO> pizzaList = pmc.getAllPizzas();  // 모든 피자 정보를 가져온다.
 
         System.out.println("\n🍕 현재 판매중인 피자 목록 🍕");
-        System.out.println("=".repeat(30));
-        for (PizzaMenu pizza : pizzaList) {
-            System.out.printf("🍕 %-15s | 수량: %2d\n", pizza.getPizzaName(), pizza.getQuantity());
+        System.out.println("=".repeat(50));
+
+        for (PizzaDTO pizza : pizzaList) {
+            SizeDTO size = pizza.getSizeDTO();  // PizzaDTO에서 SizeDTO를 가져온다.
+            System.out.printf("🍕 %-20s | 가격: %,6d원 | 사이즈: %-7s | 수량: %2d\n",
+                    pizza.getPizzaName(), size.getPrice(), size.getSizeName(), size.getQuantity());
         }
-        System.out.println("=".repeat(30));
+
+        System.out.println("=".repeat(60));
     }
 
     private static void addNewPizzaView() {
@@ -80,11 +81,17 @@ public class PizzaMenuView {
 
         sc.nextLine();
 
-        PizzaMenu newPizza = new PizzaMenu(name, quantity);
-        newPizza.setPizzaName(name);
-        newPizza.setQuantity(quantity);
+        System.out.print("📏 사이즈 (미디움 / 라지): ");
+        String sizeName = sc.nextLine();
 
-        PizzaMenuController.addNewPizza(newPizza);
+        System.out.print("💰 가격: ");
+        int price = sc.nextInt();
+        sc.nextLine();
+
+        PizzaMenuDTO pizza = new PizzaMenuDTO(name);
+        SizeDTO size = new SizeDTO(sizeName, price, quantity);
+
+        PizzaMenuController.addNewPizza(pizza, size);
 
     }
 
@@ -115,6 +122,6 @@ public class PizzaMenuView {
         // 피자 품절 처리
         pmc.deletePizza(pizzaName);
     }
-    
+
 }
 

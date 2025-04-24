@@ -42,6 +42,7 @@ private static void MainMenu() {
         }
 
 
+
     private static void displayUserStartMenu() {
         while (true) {
             CommonMenuView.printUserMenu();
