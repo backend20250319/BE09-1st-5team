@@ -3,10 +3,12 @@ package com.pizzamukza.pizzahut.domain.user.signup.view;
 import com.pizzamukza.common.CommonMenuView;
 import com.pizzamukza.common.UserInfo;
 import com.pizzamukza.pizzahut.domain.user.signup.controller.SignUpController;
-import com.pizzamukza.pizzahut.domain.user.signup.dto.SignUpDTO;
 
-import java.util.List;
+
+
 import java.util.Scanner;
+
+import static com.pizzamukza.common.CommonMenuView.username;
 
 public class SignUpView {
     private Scanner sc = new Scanner(System.in);
@@ -14,6 +16,8 @@ public class SignUpView {
 
     public static void main(String[] args) {
         new SignUpView().start();
+        new SignUpView().edit();
+
     }
 
 
@@ -97,9 +101,28 @@ public class SignUpView {
             System.out.println();
         }
     }
-}
 
-/*
+    private void edit() {
+        while (true) {
+            System.out.println(CommonMenuView.USER_MENU);
+            String choice = sc.nextLine();
+            switch (choice) {
+                case "1":
+
+                    break;
+                case "2":
+                    add();
+                    break;
+                case "0":
+                    logout();
+                    return; // 종료
+                default:
+                    System.out.println("잘못된 입력입니다. 다시 선택해주세요.");
+            }
+        }
+    }
+
+    private void add() {
         while (true) {
             System.out.println("비밀번호를 잘못 입력하셨다면 수정하실 수 있습니다.");
             System.out.print("비밀번호 수정하시겠습니까? (y/n) : ");
@@ -108,7 +131,7 @@ public class SignUpView {
             if (edit == 'y') {
                 System.out.print("새 비밀번호: ");
                 String newPw = sc.nextLine();
-                System.out.println(name + "님의 비밀번호가 새롭게 설정 되었습니다.");
+                System.out.println(username + "님의 비밀번호가 새롭게 설정 되었습니다.");
                 controller.changePassword(username, newPw);
                 break;
             } else if (edit == 'n') {
@@ -119,8 +142,10 @@ public class SignUpView {
                 System.out.println("장난 치지마세요");
 
             }
-
         }
+    }
+}
+/*
 
 
         System.out.println("현재 회원 목록:");
