@@ -6,15 +6,21 @@ import com.pizzamukza.pizzahut.domain.admin.sidemenu.repository.SideMenuReposito
 import java.sql.Connection;
 import java.util.List;
 
-import static com.pizzamukza.common.JDBCTemplate.close;
-import static com.pizzamukza.common.JDBCTemplate.getConnection;
+import static com.pizzamukza.common.JDBCTemplate.*;
 
 public class SideMenuService {
 
-    private final SideMenuRepository sideMenuRepository;
+    private final SideMenuRepository smr;
 
     public SideMenuService() {
-        sideMenuRepository = new SideMenuRepository();
+        smr = new SideMenuRepository();
+    }
+
+    public List<SideMenu> sideAllList() {
+        Connection con = getConnection();
+        List<SideMenu> sideList = smr.selectAllSideMenu(con);
+        close(con);
+        return sideList;
     }
 
     public void selectAllSideMenus() {
@@ -29,6 +35,88 @@ public class SideMenuService {
 
         close(con);
 
+    }
+
+    public boolean registerSideMenu(SideMenu side) {
+        Connection con = getConnection();
+
+        int result = smr.insertSideMenu(con, side);
+
+        if (result > 0) {
+            commit(con);
+        } else {
+            rollback(con);
+        }
+
+        close(con);
+
+        return result > 0;
+    }
+
+    public void increaseQuantity(String sideName, int amount) {
+        Connection con = getConnection();
+
+        int result = smr.increaseQuantity(con, sideName, amount);
+
+        if (result > 0) {
+            commit(con);
+            System.out.println("✅ 사이드 수량이 성공적으로 증가했습니다.");
+        } else {
+            rollback(con);
+            System.out.println("❌ 사이드 수량 증가에 실패했습니다.");
+        }
+
+        close(con);
+    }
+
+    public void decreaseQuantity(String sideName, int amount) {
+        Connection con = getConnection();
+        try {
+            int result = smr.decreaseQuantity(con, sideName, amount);
+            if (result > 0) {
+                commit(con);
+                System.out.println("✅ 사이드 수량이 성공적으로 감소했습니다.");
+            } else {
+                rollback(con);
+                System.out.println("❌ 사이드 수량 감소에 실패했습니다.");
+            }
+        } finally {
+            close(con);
+        }
+    }
+
+    public void deleteSideMenu(String sideName) {
+
+        Connection con = getConnection();
+        try {
+            int result = smr.deleteSideMenu(con, sideName);
+            if (result > 0) {
+                commit(con);
+                System.out.println("✅ 선택한 사이드 메뉴가 품절 처리되었습니다.");
+            } else {
+                rollback(con);
+                System.out.println("❌ 선택한 사이드 메뉴 품절 처리에 실패했습니다.");
+            }
+        } finally {
+            close(con);
+        }
+
+    }
+
+    public void updateSideMenu(String sideName, int modify) {
+        Connection con = getConnection();
+        try {
+            int result = smr.updateSideMenu(con, sideName, modify);
+            if (result > 0) {
+                commit(con);
+                System.out.println("✅ 선택한 사이드 메뉴의 가격이 수정되었습니다.");
+            } else {
+                rollback(con);
+                System.out.println("❌ 선택한 사이드 메뉴의 가격이 수정에 실패했습니다.");
+            }
+        } finally {
+            close(con);
+        }
     }
 }
 

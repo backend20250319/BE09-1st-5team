@@ -14,72 +14,148 @@ import static com.pizzamukza.common.JDBCTemplate.getConnection;
 
 public class SideMenuRepository {
 
-    private static Properties props = null;
+    private static Properties props = new Properties();
 
     public SideMenuRepository() {
         props = new Properties();
         try {
-            props.loadFromXML(new FileInputStream("src/test/resources/mapper.MemberMapper.xml"));
+            props.loadFromXML(new FileInputStream("src/main/java/com/pizzamukza/pizzahut/domain/admin/sidemenu/mapper/TestMapper.xml"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /* 목록 조회 */
     public static List<SideMenu> selectAllSideMenu(Connection con) {
-
-        PreparedStatement pstmt = null;
+        Statement stmt = null;
         ResultSet rset = null;
-        String sql = props.getProperty("selectAllSideMenu");
+        List<SideMenu> sideMenus = new ArrayList<>();
 
-        System.out.println("sql : " + sql);
+        String query = "SELECT * FROM tbl_side_menu";
+        System.out.println("query = " + query);
 
-        List<SideMenu> sideMenus = null;
         try {
-            rset = pstmt.executeQuery();
-            sideMenus = new ArrayList<>();
+            stmt = con.createStatement();
+            rset = stmt.executeQuery(query);
+
             while (rset.next()) {
                 SideMenu sm = new SideMenu();
                 sm.setSideId(rset.getInt("sideId"));
                 sm.setSideName(rset.getString("sideName"));
-                sm.setPrice(rset.getInt("setPrice"));
+                sm.setPrice(rset.getInt("price"));
                 sm.setQuantity(rset.getInt("quantity"));
-
                 sideMenus.add(sm);
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             close(rset);
-            close(pstmt);
+            close(stmt);
+            close(con);
         }
+
         return sideMenus;
+
     }
 
-    /* 잘 안되는 쿼리문 호출 (목록조회) */
-//    public static List<SideMenu> selectAllSideMenu2(Connection con) {
-//        Statement stmt = null;
-//        ResultSet rset = null;
-//
-//        String query = "SELECT * FROM tbl_side_menu";
-//        System.out.println("query = " + query);
-//
-//        try {
-//            stmt = con.createStatement();
-//            rset = stmt.executeQuery(query);
-//
-//            if (rset.next()) {
-//                System.out.println(rset.getString("sideName") + "");
-//            } else {
-//                System.out.println("메뉴 정보가 없습니다.");
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        } finally {
-//            close(rset);
-//            close(stmt);
-//            close(con);
-//
-//        }
-//    }
+    public int insertSideMenu(Connection con, SideMenu side) {
+        PreparedStatement pstmt = null;
+        int result = 0;
+        String sql = props.getProperty("insertSideMenu");
+
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, side.getSideName());
+            pstmt.setInt(2, side.getQuantity());
+            pstmt.setInt(3, side.getPrice());
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(pstmt);
+        }
+
+        return result;
+    }
+
+    public int increaseQuantity(Connection con, String sideName, int amount) {
+        PreparedStatement pstmt = null;
+        int result = 0;
+
+        String sql = props.getProperty("increaseQuantity");
+
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, amount);
+            pstmt.setString(2, sideName);
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(pstmt);
+        }
+
+        return result;
+    }
+
+    public int decreaseQuantity(Connection con, String sideName, int amount) {
+        PreparedStatement pstmt = null;
+        int result = 0;
+        String sql = props.getProperty("decreaseQuantity");
+
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, amount);
+            pstmt.setString(2, sideName);
+
+            result = pstmt.executeUpdate(); // 영향을 받은 행 수 반환
+        } catch (SQLException e) {
+            System.out.println("⚠️ 사이드 메뉴 수량 감소 쿼리 실행 실패: " + e.getMessage());
+        } finally {
+            close(pstmt);
+        }
+
+        return result;
+    }
+
+    public int deleteSideMenu(Connection con, String sideName) {
+        PreparedStatement pstmt = null;
+        int result = 0;
+        String sql = props.getProperty("deleteSideMenu");
+
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, sideName);
+
+            result = pstmt.executeUpdate(); // 영향을 받은 행 수 반환
+        } catch (SQLException e) {
+            System.out.println("⚠️ 사이드 메뉴 품절 처리 쿼리 실행 실패: " + e.getMessage());
+        } finally {
+            close(pstmt);
+        }
+
+        return result;
+    }
+
+    public int updateSideMenu(Connection con, String sideName, int modify) {
+        PreparedStatement pstmt = null;
+        int result = 0;
+        String sql = props.getProperty("updateSideMenu");
+
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, modify);
+            pstmt.setString(2, sideName);
+
+            result = pstmt.executeUpdate(); // 영향을 받은 행 수 반환
+        } catch (SQLException e) {
+            System.out.println("⚠️ 사이드 메뉴 품절 처리 쿼리 실행 실패: " + e.getMessage());
+        } finally {
+            close(pstmt);
+        }
+
+        return result;
+    }
 }
