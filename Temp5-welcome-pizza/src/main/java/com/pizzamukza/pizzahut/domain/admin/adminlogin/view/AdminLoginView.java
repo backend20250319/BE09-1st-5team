@@ -9,14 +9,15 @@ import java.util.Scanner;
 public class AdminLoginView {
 
     static PizzaMenuView pizzaMenu = new PizzaMenuView();
+    static AdminLoginView alv = new AdminLoginView();
 
     static Scanner sc = new Scanner(System.in);
     private static final AdminLoginService loginService = new AdminLoginService();
 
-    public static void main(String[] args) {
+    public static void adminLoginView() {
         CommonMenuView.printAdminMenu();
         int choice = sc.nextInt();
-        sc.nextLine(); // 버퍼 정리
+        sc.nextLine();
 
         switch (choice) {
             case 1:
@@ -24,7 +25,7 @@ public class AdminLoginView {
                 break;
             case 0:
                 System.out.println("👋 프로그램을 종료합니다.");
-                break;
+                alv.adminLoginView();
             default:
                 System.out.println("❌ 올바른 번호를 입력해주세요.");
         }
