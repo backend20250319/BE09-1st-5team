@@ -1,5 +1,4 @@
 package com.pizzamukza.pizzahut.domain.admin.pizzamenu.repository;
-
 import com.pizzamukza.pizzahut.domain.admin.pizzamenu.dto.PizzaMenu;
 
 import java.io.FileInputStream;
