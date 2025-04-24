@@ -1,16 +1,26 @@
 package com.pizzamukza.pizzahut.domain.admin.sidemenu.dto;
 
-public class SideMenu {
+public class SideMenuDTO {
 
     private int sideId;
     private String sideName;
     private int price;
     private int quantity;
 
-    public SideMenu() {
+    public SideMenuDTO() {
     }
 
-    public SideMenu(int sideId, String sideName, int price, int quantity) {
+    public SideMenuDTO(int sideId) {
+        this.sideId = sideId;
+    }
+
+    public SideMenuDTO(String sideName, int price, int quantity) {
+        this.sideName = sideName;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public SideMenuDTO(int sideId, String sideName, int price, int quantity) {
         this.sideId = sideId;
         this.sideName = sideName;
         this.price = price;
@@ -49,14 +59,7 @@ public class SideMenu {
         this.quantity = quantity;
     }
 
-    @Override
-    public String toString() {
-        return "SideMenu[" +
-                "sideId=" + sideId +
-                ", sideName='" + sideName + '\'' +
-                ", price=" + price +
-                ", quantity=" + quantity +
-                ']';
-    }
+
+
 }
 
