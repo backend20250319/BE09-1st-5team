@@ -6,22 +6,54 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import static com.pizzamukza.common.JDBCTemplate.close;
 
 public class PizzaMenuRepository {
 
-    private final Properties prop;
+    private static Properties prop = new Properties();
 
     public PizzaMenuRepository() {
         prop = new Properties();
         try {
-            prop.loadFromXML(new FileInputStream("src/main/java/com/pizzamukza/pizzahut/domain/admin/pizzamenu/mapper/insert-pizza.xml"));
+            prop.loadFromXML(new FileInputStream("src/main/java/com/pizzamukza/pizzahut/domain/admin/pizzamenu/mapper/AdminPizzaMapper.xml"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static List<PizzaMenu> pizzaAllList(Connection con) {
+        List<PizzaMenu> pizzaList = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        ResultSet rset= null;
+
+        String sql = prop.getProperty("pizzaList");
+
+        try {
+            pstmt = con.prepareStatement(sql);
+            rset = pstmt.executeQuery();
+
+            while (rset.next()) {
+                PizzaMenu pizza = new PizzaMenu();
+                pizza.setPizzaId(rset.getInt("pizzaId"));
+                pizza.setPizzaName(rset.getString("pizzaName"));
+                pizza.setQuantity(rset.getInt("quantity"));
+                pizzaList.add(pizza);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("🍕 피자 목록 조회 실패", e);
+        } finally {
+            close(rset);
+            close(pstmt);
+        }
+
+        return pizzaList;
     }
 
     public int insertPizza(Connection con, PizzaMenu pizza) {

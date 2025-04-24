@@ -3,13 +3,14 @@ package com.pizzamukza.pizzahut.domain.admin.pizzamenu.view;
 import com.pizzamukza.pizzahut.domain.admin.pizzamenu.controller.PizzaMenuController;
 import com.pizzamukza.pizzahut.domain.admin.pizzamenu.dto.PizzaMenu;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class PizzaMenuView {
     static Scanner sc = new Scanner(System.in);
     static PizzaMenuController pmc = new PizzaMenuController();
 
-    public static void main(String[] args) {
+    public static void pizzaMenuMainView() {
         String adminPizzaMenu = """
                 --- 피자 관리 ---
                 1. 피자 목록 조회
@@ -24,13 +25,13 @@ public class PizzaMenuView {
         int choice = 0;
 
         do {
-            System.out.println(adminPizzaMenu);
+            System.out.print(adminPizzaMenu);
             choice = sc.nextInt();
             sc.nextLine();
 
             switch (choice) {
                 case 1:
-
+                    showPizzaMenuList();
                     break;
                 case 2:
                     addNewPizzaView();
@@ -59,6 +60,16 @@ public class PizzaMenuView {
     }
 
 
+    private static void showPizzaMenuList() {
+        List<PizzaMenu> pizzaList = pmc.getAllPizzas();
+
+        System.out.println("\n🍕 현재 판매중인 피자 목록 🍕");
+        System.out.println("=".repeat(30));
+        for (PizzaMenu pizza : pizzaList) {
+            System.out.printf("🍕 %-15s | 수량: %2d\n", pizza.getPizzaName(), pizza.getQuantity());
+        }
+        System.out.println("=".repeat(30));
+    }
 
     private static void addNewPizzaView() {
         System.out.print("🍕 피자 이름: ");
@@ -104,5 +115,5 @@ public class PizzaMenuView {
         // 피자 품절 처리
         pmc.deletePizza(pizzaName);
     }
-
 }
+
