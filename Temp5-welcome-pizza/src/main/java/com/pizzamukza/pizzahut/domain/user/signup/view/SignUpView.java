@@ -16,7 +16,7 @@ public class SignUpView {
 
     public static void main(String[] args) {
         new SignUpView().start();
-        new SignUpView().edit();
+        new SignUpView().displayUserMenu();
 
     }
 
@@ -102,7 +102,7 @@ public class SignUpView {
         }
     }
 
-    private void edit() {
+    private void displayUserMenu() {
         while (true) {
             System.out.println(CommonMenuView.USER_MENU);
             String choice = sc.nextLine();
@@ -111,7 +111,7 @@ public class SignUpView {
 
                     break;
                 case "2":
-                    add();
+                    edit();
                     break;
                 case "0":
                     logout();
@@ -122,7 +122,7 @@ public class SignUpView {
         }
     }
 
-    private void add() {
+    private void edit() {
         while (true) {
             System.out.println("비밀번호를 잘못 입력하셨다면 수정하실 수 있습니다.");
             System.out.print("비밀번호 수정하시겠습니까? (Y/N) : ");
@@ -135,8 +135,8 @@ public class SignUpView {
                 controller.changePassword(username, newPw);
                 break;
             } else if (edit == 'N') {
-                System.out.println("로그인 화면으로 이동합니다.");
-                System.out.println("회원가입을 축하합니다.");
+                System.out.println("이전 화면으로 이동합니다.");
+           //     System.out.println("회원가입을 축하합니다.");
                 break;
             } else {
                 System.out.println("장난 치지마세요");
