@@ -20,8 +20,12 @@
 - 결제하기 : 메뉴 주문에서 받은 값을 합쳐서 가격 출력
 
 ### **개발 환경**
-- **IntelliJ IDEA** , Whimsical, Git, GitHub
-    
+- **프로그래밍 언어**: Java
+- **데이터베이스**: MySQL DB
+- **개발 도구**: IntelliJ IDEA
+- **형상 관리 툴**: Git, GitHub
+
+- **기타**: Whimsical, DA World(encore)
 
 ### **참고한 원본 사이트**
 - https://www.pizzahut.co.kr/
@@ -34,25 +38,73 @@
 
 ## 요구사항 정의서
 https://www.notion.so/coffit23/1dda02b1ffb18021b4f6e9129031a9c4
+### 기능구조요약  
+#### [사용자 기능]
+
+- 🙋 사용자 로그인  
+  -  로그인  
+  -  회원가입  
+      - 회원탈퇴  
+      - 비밀번호 수정  
+
+- 📄 주문 프로세스 (로그인 상태)  
+  - 주문하기  
+    - 피자 선택 (목록 조회) → 피자 추가 주문 여부 (**Y / N**)  
+      - (**Y**) 피자 재선택  
+      - (**N**) 사이드 메뉴 주문 (목록 조회)  
+        - 사이드 메뉴 선택 → 사이드 추가 주문 여부 (**Y / N**)  
+          - (**Y**) 사이드 메뉴 재선택  
+          - (**N**) 주문 명세서 출력  
+            - 결제하기 → 주문 완료  
+            - 주문 취소하기 → 종료
+- ❌ 로그아웃
+
+
+#### [관리자 기능]
+- 메뉴 관리  
+  - 🍕 피자 관리  
+      - 피자 등록  
+      - 피자 삭제  
+      - 피자 수량 증가/감소  
+      - 피자 가격 수정  
+      - 피자 목록 조회  
+  - 🍟 사이드 메뉴 관리  
+      - 사이드 목록 조회  
+      - 사이드 등록  
+      - 사이드 수량 증가/감소  
+      - 사이드 삭제  
+      - 사이드 가격 수정
+
 
 ## 스토리보드
-![{C277B63C-1D07-462C-9916-7108CDE352F0}](https://github.com/user-attachments/assets/89c00002-f6ae-4c49-8734-0ca03a066153)
-![{636752DF-9A9C-4C7E-8493-9C21DE3DF0CC}](https://github.com/user-attachments/assets/b731f9f8-2c76-4810-a8ec-e086a7a590c8)
-
-![{F62CD308-EB9F-4CFD-819D-1ABC855687CE}](https://github.com/user-attachments/assets/46076539-a1ce-4634-a97a-534e9eefda5f)
-
-![{467A7DE2-AAF4-47A8-BB6A-BEA010ECDD37}](https://github.com/user-attachments/assets/e232a4c6-fc1b-4f97-8c23-5e6c6c8d8c1a)
-![{4B1D123B-CD03-4CCB-91A7-0A856FA11B6B}](https://github.com/user-attachments/assets/b9b6eff0-9327-4c56-a9df-6b523b12a7a9)
-
+https://www.notion.so/coffit23/1dfa02b1ffb180e78eeec23d8ae64054
 
 ## MSA설계서
+예시)
+### 서비스 4. 데이터 액세스 서비스 (DAO Service)
 
+**역할**
+- 데이터베이스와의 모든 상호작용 담당 
+
+**책임**
+- SQL 쿼리 실행
+- 데이터 매핑 (DB ↔ 객체)
+- CRUD 작업 수행
+
+**구성요소**
+- UserRepository.java: 사용자 데이터 액세스
+- ReservationRepository.java: 예약 데이터 액세스
+- CarRepository.java: 차량 데이터 액세스
 
 ## 화면설계서
+![피자 주문](https://github.com/user-attachments/assets/e348f486-687b-4ead-94da-47ceaadba694)
+![결제](https://github.com/user-attachments/assets/3a852dd5-1237-4489-9249-583560ae7b0b)
+
 
 ## 유스케이스
 https://www.notion.so/coffit23/1dca02b1ffb181e7b82ddeb8aefca35a
+![유스케이스](https://github.com/user-attachments/assets/3b7ebf52-9870-47d8-93d2-27211a67fcba)
+
 
 ## ERD
 ![image](https://github.com/user-attachments/assets/582cfbb3-c1f7-4fe6-9d49-a3e1738ca0fe)
-![image](https://github.com/user-attachments/assets/f45e18bc-ef45-4dc4-81df-e4a0d63236ac)
