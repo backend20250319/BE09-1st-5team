@@ -20,7 +20,7 @@ public class SignUpView {
         new SignUpView().displayUserMenu();
 
     }
-private static void MainMenu() {
+public static void MainMenu() {
         while (true) {
             CommonMenuView.printMainMenu();
             String choice = sc.nextLine();
@@ -43,7 +43,7 @@ private static void MainMenu() {
 
 
 
-    private static void displayUserStartMenu() {
+    public static void displayUserStartMenu() {
         while (true) {
             CommonMenuView.printUserMenu();
             String choice = sc.nextLine();

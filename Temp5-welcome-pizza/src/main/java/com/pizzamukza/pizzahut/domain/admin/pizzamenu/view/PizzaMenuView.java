@@ -1,9 +1,11 @@
 package com.pizzamukza.pizzahut.domain.admin.pizzamenu.view;
 
+import com.pizzamukza.common.CommonMenuView;
 import com.pizzamukza.pizzahut.domain.admin.pizzamenu.controller.PizzaMenuController;
 import com.pizzamukza.pizzahut.domain.admin.pizzamenu.dto.PizzaDTO;
 import com.pizzamukza.pizzahut.domain.admin.pizzamenu.dto.PizzaMenuDTO;
 import com.pizzamukza.pizzahut.domain.admin.pizzamenu.dto.SizeDTO;
+import com.pizzamukza.pizzahut.domain.main.AdminMainView;
 
 import java.util.List;
 import java.util.Scanner;
@@ -11,9 +13,9 @@ import java.util.Scanner;
 public class PizzaMenuView {
     static Scanner sc = new Scanner(System.in);
     static PizzaMenuController pmc = new PizzaMenuController();
+    static AdminMainView adminMainView = new AdminMainView();
 
     public static void pizzaMenuMainView() {
-
         String adminPizzaMenu = """
                 --- 피자 관리 ---
                 1. 피자 목록 조회
@@ -48,8 +50,7 @@ public class PizzaMenuView {
                     deletePizzaView();
                     break;
                 case 0:
-                    System.out.println("이전 메뉴로 돌아갑니다.");
-                    break;
+                    adminMainView.main(new String[0]);
                 default:
                     System.out.println("❌ 올바른 번호를 입력해주세요.");
             }
