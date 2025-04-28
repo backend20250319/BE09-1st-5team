@@ -19,7 +19,6 @@ public class OrderView {
   public void displayPizzaOrderMenu() {
     System.out.println("\uD83C\uDF55 현재 판매중인 피자 목록 \uD83C\uDF55 ");
     List<Pizza> pizzaMenu = pr.getPizzaList();
-    pr.decreasePizzaQuantityBySizeId(1, 3);
     for (Pizza pizzaMenu1 : pizzaMenu) {
       System.out.println(pizzaMenu1);
     }
