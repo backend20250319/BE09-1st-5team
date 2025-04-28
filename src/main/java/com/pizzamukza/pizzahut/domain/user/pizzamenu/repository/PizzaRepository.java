@@ -124,17 +124,4 @@ public class PizzaRepository {
       }
     }
   }
-
-
-  public static void main(String[] args) {
-    PizzaRepository pizzaRepository = new PizzaRepository();
-
-    List<Pizza> pizzaMenu = pizzaRepository.getPizzaList();
-    pizzaRepository.decreasePizzaQuantityBySizeId(1, 3);
-    for (Pizza pizzaMenu1 : pizzaMenu) {
-      System.out.println(pizzaMenu1);
-    }
-
-  }
-
 }
