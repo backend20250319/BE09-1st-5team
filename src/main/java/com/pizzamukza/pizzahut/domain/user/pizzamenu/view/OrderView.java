@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class OrderView {
 
-  static Scanner sc = new Scanner(System.in);
+  public static Scanner sc = new Scanner(System.in);
   private SideRepository sr = new SideRepository();
   private PizzaRepository pr = new PizzaRepository();
 
