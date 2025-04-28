@@ -1,6 +1,8 @@
 package com.pizzamukza.pizzahut.domain.admin.pizzamenu.controller;
 
-import com.pizzamukza.pizzahut.domain.admin.pizzamenu.dto.PizzaMenu;
+import com.pizzamukza.pizzahut.domain.admin.pizzamenu.dto.PizzaDTO;
+import com.pizzamukza.pizzahut.domain.admin.pizzamenu.dto.PizzaMenuDTO;
+import com.pizzamukza.pizzahut.domain.admin.pizzamenu.dto.SizeDTO;
 import com.pizzamukza.pizzahut.domain.admin.pizzamenu.service.PizzaMenuService;
 
 import java.util.List;
@@ -9,13 +11,12 @@ public class PizzaMenuController {
 
     private static final PizzaMenuService service = new PizzaMenuService();
 
-    public List<PizzaMenu> getAllPizzas() {
+    public List<PizzaDTO> getAllPizzas() {
         return service.pizzaAllList();
     }
 
-
-    public static void addNewPizza(PizzaMenu pizza) {
-        boolean result = service.registerNewPizza(pizza);
+    public static void addNewPizza(PizzaMenuDTO pizza, SizeDTO size) {
+        boolean result = service.registerNewPizza(pizza, size);
 
         if (result) {
             System.out.println("✅ 피자 메뉴가 성공적으로 등록되었습니다.");

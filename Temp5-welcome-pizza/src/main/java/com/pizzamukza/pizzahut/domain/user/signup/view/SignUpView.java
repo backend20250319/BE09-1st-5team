@@ -3,9 +3,10 @@ package com.pizzamukza.pizzahut.domain.user.signup.view;
 import com.pizzamukza.common.CommonMenuView;
 import com.pizzamukza.common.UserInfo;
 import com.pizzamukza.pizzahut.domain.user.signup.controller.SignUpController;
+import com.pizzamukza.pizzahut.domain.user.signup.dto.SignUpDTO;
 
 
-
+import java.util.List;
 import java.util.Scanner;
 
 import static com.pizzamukza.common.CommonMenuView.username;
@@ -15,13 +16,36 @@ public class SignUpView {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        new SignUpView().start();
-        new SignUpView().displayUserMenu();
+        MainMenu(); //메인으로 하면 이전화면으로 돌아감
+    //    new SignUpView().MainMenu();
+      //  new SignUpView().displayUserStartMenu();
+        //new SignUpView().displayUserMenu();
 
     }
+public static void MainMenu() {
+        while (true) {
+            CommonMenuView.printMainMenu();
+            String choice = sc.nextLine();
+
+                switch (choice) {
+                    case "1":
+
+                        break;
+                    case "2":
+                        displayUserStartMenu();
+                        break;
+                    case "0":
+                        logout();//바꿔야함
+                        return; // 종료
+                    default:
+                        System.out.println("잘못된 입력입니다. 다시 선택해주세요.");
+                }
+            }
+        }
 
 
-    private void start() {
+
+    public static void displayUserStartMenu() {
         while (true) {
             CommonMenuView.printUserMenu();
             String choice = sc.nextLine();
@@ -43,7 +67,7 @@ public class SignUpView {
     }
 
 
-    private void registerUser() {
+    private static void registerUser() {
         String username = "";
         String pw = "";
         String name = "";
@@ -59,20 +83,21 @@ public class SignUpView {
                 System.out.print("이름를 입력하세요: ");
                 name = sc.nextLine();
                 controller.register(username, pw, name);
+            System.out.println("✅회원가입이 완료 되었습니다.");
+            System.out.println("로그인 화면으로 돌아갑니다...");
+            loginUser();
                 break;
             } else if (who == 'N') {
                 System.out.println("아쉽네요");
+            System.out.print("이전 화면으로 돌아갑니다...");
                 break;
             } else {
                 System.out.println("장난치지 마세요");
-
             }
-            System.out.println("✅회원가입이 완료 되었습니다.");
-            System.out.print("이전 화면으로 돌아갑니다...");
         }
     }
 
-    private void loginUser() {
+    private static void loginUser() {
         System.out.println("=============== 사용자 로그인 ================");
         while (true) {
             System.out.print("아이디를 입력하세요 : ");
@@ -83,7 +108,7 @@ public class SignUpView {
             if (controller.login(loginusername, loginPw)) {
                 String name = UserInfo.info.getName();
                 System.out.println("로그인 성공! 어서오세요~ " + name + "님! 사용자 메뉴로 이동합니다...");
-
+                displayUserMenu();
                 //    CommonMenuView.printUserMenu();// 이전상태로 이동
                 break;
             } else {
@@ -104,7 +129,7 @@ public class SignUpView {
 
     private static void displayUserMenu() {
         while (true) {
-            System.out.println(CommonMenuView.USER_MENU);
+            System.out.print(CommonMenuView.USER_MENU);
             String choice = sc.nextLine();
             switch (choice) {
                 case "1":
@@ -113,6 +138,9 @@ public class SignUpView {
                 case "2":
                     edit();
                     break;
+                case "3":
+                    deleteUser();
+                    return; // 탈퇴 후 로그인으로 돌아가거나 프로그램 종료
                 case "0":
                     logout();
                     return; // 종료
@@ -136,7 +164,6 @@ public class SignUpView {
                 break;
             } else if (edit == 'N') {
                 System.out.println("이전 화면으로 이동합니다.");
-           //     System.out.println("회원가입을 축하합니다.");
                 break;
             } else {
                 System.out.println("장난 치지마세요");
@@ -144,20 +171,20 @@ public class SignUpView {
             }
         }
     }
-}
-/*
 
 
+
+private static void deleteUser() {
+        System.out.println("===== 회원 탈퇴 =====");
         System.out.println("현재 회원 목록:");
-        List<SignUpDTO> users = controller.getAllUsers();
+        List<SignUpDTO> users = SignUpView.controller.getAllUsers();
         for (SignUpDTO u : users) {
             System.out.println("번호: " + u.getMemberId() + " | 아이디: " + u.getUsername() + " | 이름: " + u.getName());
         }
 
         System.out.print("삭제할 회원 번호를 입력하세요: ");
         int memberIdToDelete = Integer.parseInt(sc.nextLine());
-        controller.deleteUserById(memberIdToDelete);
+        SignUpView.controller.deleteUserById(memberIdToDelete);
         System.out.println("삭제가 완료되었습니다.");
     }
 }
-*/

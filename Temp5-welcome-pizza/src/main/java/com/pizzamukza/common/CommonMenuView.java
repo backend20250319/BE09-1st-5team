@@ -7,6 +7,7 @@ import java.util.Scanner;
             ===== 사용자 메뉴 =====
             1. 주문하기
             2. 비밀번호 수정
+            3. 회원 탈퇴
             0. 이전 메뉴 돌아가기 (로그아웃)
             =====================
             번호를 입력하세요: """;
@@ -48,10 +49,10 @@ import java.util.Scanner;
 
         // 사용자 초기 메뉴 화면
         public static void printUserMenu() {
-            System.out.println("===== 사용자 메뉴 =====");
+            System.out.println("===== 사용자 시작 메뉴 =====");
             System.out.println("1. 회원가입");
             System.out.println("2. 로그인");
-            System.out.println("0. 이전 메뉴 돌아가기 (로그아웃)");
+            System.out.println("0. 이전 메뉴 돌아가기");
             System.out.println("=======================");
             System.out.print("번호를 입력하세요: ");
         }
