@@ -14,7 +14,6 @@ import static com.pizzamukza.common.JDBCTemplate.close;
 public class SideMenuRepository {
 
     private static Properties props = new Properties();
-    private static SideMenuDTO sm = new SideMenuDTO();
 
 
     public SideMenuRepository() {
@@ -40,6 +39,7 @@ public class SideMenuRepository {
             rset = stmt.executeQuery(query);
 
             while (rset.next()) {
+                SideMenuDTO sm = new SideMenuDTO();
                 sm.setSideId(rset.getInt("sideId"));
                 sm.setSideName(rset.getString("sideName"));
                 sm.setPrice(rset.getInt("price"));
