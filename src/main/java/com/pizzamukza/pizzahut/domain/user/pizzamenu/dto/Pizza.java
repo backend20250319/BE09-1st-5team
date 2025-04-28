@@ -1,6 +1,6 @@
 package com.pizzamukza.pizzahut.domain.user.pizzamenu.dto;
 
-public class PizzaMenu {
+public class Pizza {
   int id;
   String pizzaName; // 페퍼로니피자
   String size; // 미디움, 라지
@@ -8,13 +8,13 @@ public class PizzaMenu {
 
   @Override
   public String toString() {
-    return id + " " + pizzaName + " " + size + " " + price + "원 " + quantity + "개";
+    return "\uD83C\uDF55" + id + ". " + pizzaName + " " + size + " " + price + "원 " + quantity + "개";
   }
 
 
   int quantity; // 가격
 
-  public PizzaMenu(int sizeId, String pizzaName, String sizeName, int price, int quantity) {
+  public Pizza(int sizeId, String pizzaName, String sizeName, int price, int quantity) {
     this.id = sizeId;
     this.pizzaName = pizzaName;
     this.size = sizeName;
