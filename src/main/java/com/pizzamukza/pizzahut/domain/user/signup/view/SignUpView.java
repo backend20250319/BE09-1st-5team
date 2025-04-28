@@ -17,31 +17,31 @@ public class SignUpView {
 
     public static void main(String[] args) {
         MainMenu(); //메인으로 하면 이전화면으로 돌아감
-    //    new SignUpView().MainMenu();
-      //  new SignUpView().displayUserStartMenu();
+        //    new SignUpView().MainMenu();
+        //  new SignUpView().displayUserStartMenu();
         //new SignUpView().displayUserMenu();
 
     }
-public static void MainMenu() {
+    public static void MainMenu() {
         while (true) {
             CommonMenuView.printMainMenu();
             String choice = sc.nextLine();
 
-                switch (choice) {
-                    case "1":
+            switch (choice) {
+                case "1":
 
-                        break;
-                    case "2":
-                        displayUserStartMenu();
-                        break;
-                    case "0":
-                        logout();//바꿔야함
-                        return; // 종료
-                    default:
-                        System.out.println("잘못된 입력입니다. 다시 선택해주세요.");
-                }
+                    break;
+                case "2":
+                    displayUserStartMenu();
+                    break;
+                case "0":
+                    logout();//바꿔야함
+                    return; // 종료
+                default:
+                    System.out.println("잘못된 입력입니다. 다시 선택해주세요.");
             }
         }
+    }
 
 
 
@@ -83,13 +83,13 @@ public static void MainMenu() {
                 System.out.print("이름를 입력하세요: ");
                 name = sc.nextLine();
                 controller.register(username, pw, name);
-            System.out.println("✅회원가입이 완료 되었습니다.");
-            System.out.println("로그인 화면으로 돌아갑니다...");
-            loginUser();
+                System.out.println("✅회원가입이 완료 되었습니다.");
+                System.out.println("로그인 화면으로 돌아갑니다...");
+                loginUser();
                 break;
             } else if (who == 'N') {
                 System.out.println("아쉽네요");
-            System.out.print("이전 화면으로 돌아갑니다...");
+                System.out.print("이전 화면으로 돌아갑니다...");
                 break;
             } else {
                 System.out.println("장난치지 마세요");
@@ -174,7 +174,7 @@ public static void MainMenu() {
 
 
 
-private static void deleteUser() {
+    private static void deleteUser() {
         System.out.println("===== 회원 탈퇴 =====");
         System.out.println("현재 회원 목록:");
         List<SignUpDTO> users = SignUpView.controller.getAllUsers();
