@@ -8,7 +8,7 @@ public class Pizza {
 
   @Override
   public String toString() {
-    return "\uD83C\uDF55" + id + ". " + pizzaName + " " + size + " " + price + "원 " + quantity + "개";
+    return id + ". " + pizzaName + " " + size + " " + price + "원 " + quantity + "개";
   }
 
 
