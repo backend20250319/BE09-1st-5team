@@ -33,7 +33,7 @@ public class SideMenuRepository {
         List<SideMenuDTO> sideMenuDTOS = new ArrayList<>();
 
         String query = "SELECT * FROM tbl_side_menu";
-        System.out.println("query = " + query);
+//        System.out.println("query = " + query);
 
         try {
             stmt = con.createStatement();
