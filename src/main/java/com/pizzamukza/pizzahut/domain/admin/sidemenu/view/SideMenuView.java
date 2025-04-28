@@ -5,6 +5,7 @@ import com.pizzamukza.pizzahut.domain.admin.sidemenu.controller.SideMenuControll
 import com.pizzamukza.pizzahut.domain.admin.sidemenu.dto.SideMenuDTO;
 import com.pizzamukza.pizzahut.domain.admin.sidemenu.repository.SideMenuRepository;
 import com.pizzamukza.pizzahut.domain.admin.sidemenu.service.SideMenuService;
+import com.pizzamukza.pizzahut.domain.main.AdminMainView;
 
 import java.util.List;
 import java.util.Scanner;
@@ -13,6 +14,7 @@ public class SideMenuView {
     static SideMenuService sms = new SideMenuService();
     static SideMenuController smc = new SideMenuController();
     static Scanner sc = new Scanner(System.in);
+    static AdminMainView adminMainView = new AdminMainView();
 
     public static void main(String[] args) {
         SideMenuService sm = new SideMenuService();
@@ -75,7 +77,7 @@ public class SideMenuView {
                     break;
                 case 6 : printSideMenuUpdate();
                     break;
-                case 0 : CommonMenuView.printAdminServiceMenu();
+                case 0 : adminMainView.main(new String[0]);
                     break;
                 default :
                     System.out.println("번호를 잘못 입력하셨습니다.");

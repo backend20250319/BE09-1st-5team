@@ -3,9 +3,10 @@ package com.pizzamukza.pizzahut.domain.user.signup.view;
 import com.pizzamukza.common.CommonMenuView;
 import com.pizzamukza.common.UserInfo;
 import com.pizzamukza.pizzahut.domain.user.signup.controller.SignUpController;
+import com.pizzamukza.pizzahut.domain.user.signup.dto.SignUpDTO;
 
 
-
+import java.util.List;
 import java.util.Scanner;
 
 import static com.pizzamukza.common.CommonMenuView.username;
@@ -15,12 +16,13 @@ public class SignUpView {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        new SignUpView().MainMenu();
-        new SignUpView().displayUserStartMenu();
-        new SignUpView().displayUserMenu();
+        MainMenu(); //메인으로 하면 이전화면으로 돌아감
+    //    new SignUpView().MainMenu();
+      //  new SignUpView().displayUserStartMenu();
+        //new SignUpView().displayUserMenu();
 
     }
-private static void MainMenu() {
+public static void MainMenu() {
         while (true) {
             CommonMenuView.printMainMenu();
             String choice = sc.nextLine();
@@ -43,7 +45,7 @@ private static void MainMenu() {
 
 
 
-    private static void displayUserStartMenu() {
+    public static void displayUserStartMenu() {
         while (true) {
             CommonMenuView.printUserMenu();
             String choice = sc.nextLine();
@@ -136,6 +138,9 @@ private static void MainMenu() {
                 case "2":
                     edit();
                     break;
+                case "3":
+                    deleteUser();
+                    return; // 탈퇴 후 로그인으로 돌아가거나 프로그램 종료
                 case "0":
                     logout();
                     return; // 종료
@@ -166,20 +171,20 @@ private static void MainMenu() {
             }
         }
     }
-}
-/*
 
 
+
+private static void deleteUser() {
+        System.out.println("===== 회원 탈퇴 =====");
         System.out.println("현재 회원 목록:");
-        List<SignUpDTO> users = controller.getAllUsers();
+        List<SignUpDTO> users = SignUpView.controller.getAllUsers();
         for (SignUpDTO u : users) {
             System.out.println("번호: " + u.getMemberId() + " | 아이디: " + u.getUsername() + " | 이름: " + u.getName());
         }
 
         System.out.print("삭제할 회원 번호를 입력하세요: ");
         int memberIdToDelete = Integer.parseInt(sc.nextLine());
-        controller.deleteUserById(memberIdToDelete);
+        SignUpView.controller.deleteUserById(memberIdToDelete);
         System.out.println("삭제가 완료되었습니다.");
     }
 }
-*/
