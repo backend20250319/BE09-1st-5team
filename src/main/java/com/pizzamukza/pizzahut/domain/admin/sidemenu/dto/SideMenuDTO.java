@@ -10,6 +10,11 @@ public class SideMenuDTO {
     public SideMenuDTO() {
     }
 
+    @Override
+    public String toString() {
+        return sideId + ". " + sideName + " " + price + "원 " + quantity + "개";
+    }
+
     public SideMenuDTO(int sideId) {
         this.sideId = sideId;
     }

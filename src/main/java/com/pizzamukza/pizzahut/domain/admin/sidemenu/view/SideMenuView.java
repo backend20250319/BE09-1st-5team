@@ -133,7 +133,7 @@ public class SideMenuView {
     }
 
     /* 사이드 수량 감소 */
-    private static void decreaseQuantityView() {
+    public static void decreaseQuantityView() {
         sc.nextLine();
 
         System.out.print("📦 수량을 감소시킬 사이드 메뉴 이름: ");

@@ -33,18 +33,29 @@ public class SideMenuRepository {
         List<SideMenuDTO> sideMenuDTOS = new ArrayList<>();
 
         String query = "SELECT * FROM tbl_side_menu";
-        System.out.println("query = " + query);
+//        System.out.println("query = " + query);
 
         try {
             stmt = con.createStatement();
             rset = stmt.executeQuery(query);
 
+            /* sm은 static으로 1개입니다. sideMenuDTOS.add(sm)은 같은 객체를 계속 추가하는 것과 같습니다.
+            따라서 같은 객체를 여러번 넣는 것이 됩니다.
+            setSideID, setSideName을 한다고 해도 객체가 달라지는 것이 아닌 객체 값이 달라지기 떄문에
+            여전히 오류가 있습니다. */
+
             while (rset.next()) {
-                sm.setSideId(rset.getInt("sideId"));
+                /*sm.setSideId(rset.getInt("sideId"));
                 sm.setSideName(rset.getString("sideName"));
                 sm.setPrice(rset.getInt("price"));
                 sm.setQuantity(rset.getInt("quantity"));
-                sideMenuDTOS.add(sm);
+                sideMenuDTOS.add(sm);*/
+                SideMenuDTO sideMenuDTO = new SideMenuDTO();
+                sideMenuDTO.setSideId(rset.getInt("sideId"));
+                sideMenuDTO.setSideName(rset.getString("sideName"));
+                sideMenuDTO.setPrice(rset.getInt("price"));
+                sideMenuDTO.setQuantity(rset.getInt("quantity"));
+                sideMenuDTOS.add(sideMenuDTO);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
