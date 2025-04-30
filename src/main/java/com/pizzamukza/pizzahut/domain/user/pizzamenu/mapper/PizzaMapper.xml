@@ -33,7 +33,7 @@
     s.sizeId,
     s.sizeName,
     s.price,
-    p.quantity
+    s.quantity
     FROM tbl_pizza p
     JOIN tbl_size s ON p.pizzaId = s.pizzaId
   </entry>
@@ -84,6 +84,29 @@
     s.quantity
     FROM tbl_size s
     JOIN tbl_pizza p ON s.pizzaId = p.pizzaId
+    WHERE s.sizeId = ?
+  </entry>
+
+  <!-- 피자 아이디로 가격 조회 -->
+  <entry key="selectPizzaPriceyBySizeId">
+    SELECT
+    s.price
+    FROM tbl_size s
+    JOIN tbl_pizza p ON s.pizzaId = p.pizzaId
+    WHERE s.sizeId = ?
+  </entry>
+
+  <!-- sideId로 피자 정보 조회 -->
+  <entry key="selectPizzaDetailsById">
+    SELECT
+    p.pizzaId,
+    p.pizzaName,
+    s.sizeId,
+    s.sizeName,
+    s.price,
+    p.quantity
+    FROM tbl_pizza p
+    JOIN tbl_size s ON p.pizzaId = s.pizzaId
     WHERE s.sizeId = ?
   </entry>
 

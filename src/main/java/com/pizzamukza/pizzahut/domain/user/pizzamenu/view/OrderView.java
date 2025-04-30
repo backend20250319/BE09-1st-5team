@@ -1,6 +1,8 @@
 package com.pizzamukza.pizzahut.domain.user.pizzamenu.view;
 
+import com.pizzamukza.pizzahut.domain.admin.sidemenu.dto.SideMenuDTO;
 import com.pizzamukza.pizzahut.domain.user.pizzamenu.dto.Pizza;
+import com.pizzamukza.pizzahut.domain.user.pizzamenu.dto.SideOrder;
 import com.pizzamukza.pizzahut.domain.user.pizzamenu.repository.PizzaRepository;
 import com.pizzamukza.pizzahut.domain.user.pizzamenu.repository.SideRepository;
 import java.util.List;
@@ -38,7 +40,6 @@ public class OrderView {
   }
 
 
-
   public int[] insertSide() {
     System.out.print("주문할 사이드 번호를 입력하세요: ");
     int sideId = sc.nextInt();
@@ -48,11 +49,43 @@ public class OrderView {
     return new int[]{sideId, quantity};
   }
 
-  public static void main(String[] args) {
-    OrderView upmv = new OrderView();
-    upmv.displayPizzaOrderMenu();
-    upmv.displaySideMenu();
+  public static void displayOrder(Pizza pizza, int pizzaQuantity, SideOrder sideOrder) {
+    System.out.println("피자 주문 내역 입니다.");
+    System.out.println(pizza);
+    System.out.println(pizzaQuantity);
+    System.out.println(sideOrder);
+  }
+
+  public static boolean pay() {
+    System.out.println("\uD83D\uDCB3 결제 하시겠습니까? (Y/N)");
+    String input = sc.next().toLowerCase();
+    if (input.equals("y")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public static void displayOrderSuccessMessage() {
+    System.out.println("✅ 주문이 성공적으로 완료되었습니다.");
+  }
 
 
+  public void displayOrder(Pizza pizza, int pizzaQuantity, SideMenuDTO side, int sideQuantity) {
+    int pizzaPrice = pizza.price * pizzaQuantity;
+    int sidePrice = side.getPrice() * sideQuantity;
+
+    System.out.println("=".repeat(30));
+    System.out.println("\uD83D\uDCE6 주문 요약서");
+    System.out.println("=".repeat(30));
+    System.out.println("\n \uD83C\uDF55 피자");
+    System.out.println(pizza.toString() + " " + pizzaPrice + "원");
+    System.out.println("\uD83C\uDF5F 사이드");
+    System.out.println(side.toString() + " " + sidePrice + "원");
+    System.out.println();
+    System.out.println("=".repeat(30));
+
+    System.out.println("총 주문 금액: " + (pizzaPrice + sidePrice) + "원");
+    System.out.println("=".repeat(30));
   }
 }

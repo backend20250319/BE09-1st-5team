@@ -8,6 +8,8 @@ public class SideOrder {
   int quantity;
   int totalPrice;
 
+  public SideOrder() {}
+
   @Override
   public String toString() {
     return "SizeOrder{" +
@@ -16,6 +18,10 @@ public class SideOrder {
         ", quantity=" + quantity +
         ", totalPrice=" + totalPrice +
         '}';
+  }
+
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
   }
 
   public SideOrder(int sizeOrderId, SizeDTO sizeDTO, int quantity, int totalPrice) {

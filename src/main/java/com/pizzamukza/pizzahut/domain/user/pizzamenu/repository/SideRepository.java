@@ -3,6 +3,7 @@ package com.pizzamukza.pizzahut.domain.user.pizzamenu.repository;
 import static com.pizzamukza.common.JDBCTemplate.getConnection;
 
 import com.pizzamukza.pizzahut.domain.admin.sidemenu.dto.SideMenuDTO;
+import com.pizzamukza.pizzahut.domain.user.pizzamenu.dto.SideOrder;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -135,5 +136,44 @@ public class SideRepository {
     return sideMenus;
   }
 
+
+  public SideMenuDTO getSideById(int id) {
+    String sql = prop.getProperty("selectSideDetailsById");
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    SideMenuDTO sideMenu = null;
+
+    try {
+      conn = getConnection();
+      pstmt = conn.prepareStatement(sql);
+      pstmt.setInt(1, id);
+      rs = pstmt.executeQuery();
+
+      if (rs.next()) {
+        int sideId = rs.getInt("sideId");
+        String sideName = rs.getString("sideName");
+        int price = rs.getInt("price");
+        int quantity = rs.getInt("quantity");
+
+        sideMenu = new SideMenuDTO(sideId, sideName, price, quantity);
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if (rs != null) rs.close();
+      } catch (Exception ignored) {}
+      try {
+        if (pstmt != null) pstmt.close();
+      } catch (Exception ignored) {}
+      try {
+        if (conn != null) conn.close();
+      } catch (Exception ignored) {}
+    }
+
+    return sideMenu;
+  }
 
 }
