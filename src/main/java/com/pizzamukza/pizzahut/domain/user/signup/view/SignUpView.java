@@ -22,6 +22,7 @@ public class SignUpView {
         //new SignUpView().displayUserMenu();
 
     }
+
     public static void MainMenu() {
         while (true) {
             CommonMenuView.printMainMenu();
@@ -42,7 +43,6 @@ public class SignUpView {
             }
         }
     }
-
 
 
     public static void displayUserStartMenu() {
@@ -133,7 +133,7 @@ public class SignUpView {
             String choice = sc.nextLine();
             switch (choice) {
                 case "1":
-
+                    // TODO : 주문하기 메서드 추가 예정
                     break;
                 case "2":
                     edit();
@@ -171,7 +171,6 @@ public class SignUpView {
             }
         }
     }
-
 
 
     private static void deleteUser() {
