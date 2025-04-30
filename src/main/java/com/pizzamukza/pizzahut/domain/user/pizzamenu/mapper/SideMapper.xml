@@ -17,8 +17,8 @@
 
 
   <!--사이드 아이디로 가격 조회-->
-  <entry key="getSidePriceById">
-    SELECT price, quantity
+  <entry key="selectSideDetailsById">
+    SELECT *
     FROM tbl_side_menu
     WHERE sideId = ?
   </entry>

@@ -27,6 +27,83 @@ public class PizzaRepository {
     }
   }
 
+  // sizeId로 피자 하나 조회하여 Pizza 객체로 반환
+  public Pizza getPizzaById(int sizeId) {
+    String sql = prop.getProperty("selectPizzaDetailsById");
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    Pizza pizza = null;
+
+    try {
+      conn = getConnection();
+      pstmt = conn.prepareStatement(sql);
+      pstmt.setInt(1, sizeId);
+      rs = pstmt.executeQuery();
+
+      if (rs.next()) {
+        String pizzaName = rs.getString("pizzaName");
+        String sizeName = rs.getString("sizeName");
+        int price = rs.getInt("price");
+        int quantity = rs.getInt("quantity");
+
+        pizza = new Pizza(sizeId, pizzaName, sizeName, price, quantity);
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if (rs != null) rs.close();
+      } catch (Exception ignored) {}
+      try {
+        if (pstmt != null) pstmt.close();
+      } catch (Exception ignored) {}
+      try {
+        if (conn != null) conn.close();
+      } catch (Exception ignored) {}
+    }
+
+    return pizza;
+  }
+
+
+  // sizeId로 피자 가격 조회
+  public int getPizzaPriceById(int sizeId) {
+    String sql = prop.getProperty("selectPizzaDetailsById");
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    int price = -1;
+
+    try {
+      conn = getConnection();
+      pstmt = conn.prepareStatement(sql);
+      pstmt.setInt(1, sizeId);
+      rs = pstmt.executeQuery();
+
+      if (rs.next()) {
+        price = rs.getInt("price");
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if (rs != null) rs.close();
+      } catch (Exception ignored) {}
+      try {
+        if (pstmt != null) pstmt.close();
+      } catch (Exception ignored) {}
+      try {
+        if (conn != null) conn.close();
+      } catch (Exception ignored) {}
+    }
+
+    return price;
+  }
+
+
   // 피자 목록 조회
   public List<Pizza> getPizzaList() {
     String sql = prop.getProperty("selectAllPizzaDetails");
@@ -124,4 +201,6 @@ public class PizzaRepository {
       }
     }
   }
+
+
 }
