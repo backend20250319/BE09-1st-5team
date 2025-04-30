@@ -2,6 +2,9 @@ package com.pizzamukza.pizzahut.domain.user.signup.view;
 
 import com.pizzamukza.common.CommonMenuView;
 import com.pizzamukza.common.UserInfo;
+import com.pizzamukza.pizzahut.domain.main.AdminMainView;
+import com.pizzamukza.pizzahut.domain.user.login.dto.Login;
+import com.pizzamukza.pizzahut.domain.user.pizzamenu.controller.OrderController;
 import com.pizzamukza.pizzahut.domain.user.signup.controller.SignUpController;
 import com.pizzamukza.pizzahut.domain.user.signup.dto.SignUpDTO;
 
@@ -13,6 +16,7 @@ import static com.pizzamukza.common.CommonMenuView.username;
 
 public class SignUpView {
     private static SignUpController controller = new SignUpController();
+    static OrderController orderController = new OrderController();
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -44,7 +48,6 @@ public class SignUpView {
         }
     }
 
-
     public static void displayUserStartMenu() {
         while (true) {
             CommonMenuView.printUserMenu();
@@ -65,7 +68,6 @@ public class SignUpView {
             }
         }
     }
-
 
     private static void registerUser() {
         String username = "";
@@ -121,18 +123,19 @@ public class SignUpView {
         if (UserInfo.info != null) {
             System.out.println(UserInfo.info.getName() + " 님 ✅ 로그아웃 되었습니다. 메인 메뉴로 돌아갑니다.");
             UserInfo.info = null;
-            CommonMenuView.printUserMenu();// 이전상태로 이동
+            displayUserStartMenu();
         } else {
             System.out.println();
         }
     }
 
-    private static void displayUserMenu() {
+    public static void displayUserMenu() {
         while (true) {
             System.out.print(CommonMenuView.USER_MENU);
             String choice = sc.nextLine();
             switch (choice) {
                 case "1":
+                    orderController.startOrderMenu();
                     // TODO : 주문하기 메서드 추가 예정
                     break;
                 case "2":
@@ -157,10 +160,12 @@ public class SignUpView {
             char edit = sc.next().charAt(0);
             sc.nextLine();
             if (edit == 'Y') {
+                String username = UserInfo.info.getUsername();
                 System.out.print("새 비밀번호: ");
                 String newPw = sc.nextLine();
                 System.out.println(username + "님의 비밀번호가 새롭게 설정 되었습니다.");
                 controller.changePassword(username, newPw);
+                displayUserStartMenu();
                 break;
             } else if (edit == 'N') {
                 System.out.println("이전 화면으로 이동합니다.");
@@ -171,7 +176,6 @@ public class SignUpView {
             }
         }
     }
-
 
     private static void deleteUser() {
         System.out.println("===== 회원 탈퇴 =====");

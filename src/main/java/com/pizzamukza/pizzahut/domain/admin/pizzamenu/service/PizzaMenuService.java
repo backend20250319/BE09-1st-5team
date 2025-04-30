@@ -37,10 +37,10 @@ public class PizzaMenuService {
         return result > 0;
     }
 
-    public void increaseQuantity(String pizzaName, int amount) {
+    public void increaseQuantity(int pizzaId, int amount) {
         Connection con = getConnection();
 
-        int result = repository.increaseQuantity(con, pizzaName, amount);
+        int result = repository.increaseQuantity(con, pizzaId, amount);
 
         if (result > 0) {
             commit(con);
@@ -51,10 +51,10 @@ public class PizzaMenuService {
         close(con);
     }
 
-    public void decreaseQuantity(String pizzaName, int amount) {
+    public void decreaseQuantity(int pizzaId, int amount) {
         Connection con = getConnection();
         try {
-            int result = repository.decreaseQuantity(con, pizzaName, amount);
+            int result = repository.decreaseQuantity(con, pizzaId, amount);
             if (result > 0) {
                 commit(con);
             } else {
@@ -74,8 +74,8 @@ public class PizzaMenuService {
 
             // 조회된번호로 다시 삭제 요청
             int result = 0;
-            if(pizzaId > 0)
-                result = repository.deletePizza(con, pizzaId, pizzaName);
+            if (pizzaId > 0)
+                result = repository.deletePizza(con, pizzaName);
 
             if (result > 0) {
                 commit(con);

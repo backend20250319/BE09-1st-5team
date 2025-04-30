@@ -6,6 +6,7 @@
         SELECT
         p.pizzaId,
         p.pizzaName,
+        s.sizeId,
         s.sizeName,
         s.price,
         s.quantity
@@ -29,11 +30,7 @@
         <![CDATA[
     UPDATE tbl_size
     SET quantity = quantity + ?
-    WHERE pizzaId = (
-        SELECT pizzaId
-        FROM tbl_pizza
-        WHERE pizzaName = ?
-    )
+    WHERE sizeId = ?
     ]]>
     </entry>
 
@@ -41,13 +38,9 @@
     <!-- 피자 수량 감소 -->
     <entry key="decreaseQuantity">
         <![CDATA[
-    UPDATE tbl_size
+     UPDATE tbl_size
     SET quantity = quantity - ?
-    WHERE pizzaId = (
-        SELECT pizzaId
-        FROM tbl_pizza
-        WHERE pizzaName = ?
-    )
+    WHERE sizeId = ?
     ]]>
     </entry>
 
