@@ -62,16 +62,24 @@ public class PizzaMenuView {
         List<PizzaDTO> pizzaList = pmc.getAllPizzas();  // 모든 피자 정보를 가져온다.
 
         System.out.println("\n🍕 현재 판매중인 피자 목록 🍕");
-        System.out.println("=".repeat(50));
+        System.out.println("=".repeat(72));
+        System.out.printf("%-8s %-20s %-10s %12s %8s\n", "피자번호", "피자 이름", "사이즈", "가격", "수량");
+        System.out.println("-".repeat(72));
 
         for (PizzaDTO pizza : pizzaList) {
-            SizeDTO size = pizza.getSizeDTO();  // PizzaDTO에서 SizeDTO를 가져온다.
-            System.out.printf("🍕 %-20s | 가격: %,6d원 | 사이즈: %-7s | 수량: %2d\n",
-                    pizza.getPizzaName(), size.getPrice(), size.getSizeName(), size.getQuantity());
+            SizeDTO size = pizza.getSizeDTO();  // SizeDTO 가져오기
+            System.out.printf("%-8d %-20s %-10s %,12d원 %6d개\n",
+                    size.getPizzaId(),               // 피자 ID
+                    pizza.getPizzaName(),            // 피자 이름
+                    size.getSizeName(),              // 사이즈
+                    size.getPrice(),                 // 가격
+                    size.getQuantity());             // 수량
         }
 
-        System.out.println("=".repeat(60));
+        System.out.println("=".repeat(72));
     }
+
+
 
     private static void addNewPizzaView() {
         System.out.print("🍕 피자 이름: ");
@@ -97,23 +105,30 @@ public class PizzaMenuView {
     }
 
     private static void increaseQuantityView() {
-        System.out.print("📦 수량을 증가시킬 피자 이름: ");
-        String pizzaName = sc.nextLine().trim();
+        showPizzaMenuList();
+
+        System.out.print("📦 수량을 증가시킬 피자 번호: ");
+        int pizzaId = sc.nextInt();
+        sc.nextLine();
 
         System.out.print("➕ 추가할 수량: ");
         int amount = sc.nextInt();
+        sc.nextLine();
 
-        pmc.increaseQuantity(pizzaName, amount);
+        pmc.increaseQuantity(pizzaId, amount);
     }
 
     private static void decreaseQuantityView() {
-        System.out.print("📦 수량을 감소시킬 피자 이름: ");
-        String pizzaName = sc.nextLine().trim();
+        showPizzaMenuList();
+
+        System.out.print("📦 수량을 감소시킬 피자 번호: ");
+        int pizzaId = sc.nextInt();
+        sc.nextLine();
 
         System.out.print("➖ 감소할 수량: ");
         int amount = Integer.parseInt(sc.nextLine());
 
-        pmc.decreaseQuantity(pizzaName, amount);
+        pmc.decreaseQuantity(pizzaId, amount);
     }
 
     private static void deletePizzaView() {

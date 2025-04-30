@@ -1,6 +1,6 @@
 package com.pizzamukza.pizzahut.domain.user.pizzamenu.controller;
 
-import static com.pizzamukza.pizzahut.domain.user.signup.view.SignUpView.displayUserStartMenu;
+import static com.pizzamukza.pizzahut.domain.user.signup.view.SignUpView.displayUserMenu;
 
 import com.pizzamukza.pizzahut.domain.admin.sidemenu.dto.SideMenuDTO;
 import com.pizzamukza.pizzahut.domain.user.pizzamenu.dto.Pizza;
@@ -23,11 +23,8 @@ public class OrderController {
   }*/
 
 
-  public OrderController() {
-    startOrderMenu();
-  }
 
-  private void startOrderMenu() {
+  public void startOrderMenu() {
     OrderView orderView = new OrderView();
     OrderService orderService = new OrderService();
 
@@ -59,7 +56,7 @@ public class OrderController {
       orderView.displayOrderSuccessMessage();
     }
     // 사용자 시작 메뉴로
-    displayUserStartMenu();
+    displayUserMenu();
   }
 
 }

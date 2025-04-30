@@ -45,11 +45,11 @@ public class PizzaMenuRepository {
 
                 // PizzaMenuDTO 설정
                 PizzaMenuDTO pizzaMenuDTO = new PizzaMenuDTO();
-                pizzaMenuDTO.setPizzaId(rset.getInt("pizzaId"));
                 pizzaMenuDTO.setPizzaName(rset.getString("pizzaName"));
 
                 // SizeDTO 설정
                 SizeDTO sizeDTO = new SizeDTO();
+                sizeDTO.setPizzaId(rset.getInt("sizeId"));
                 sizeDTO.setSizeName(rset.getString("sizeName"));
                 sizeDTO.setPrice(rset.getInt("price"));
                 sizeDTO.setQuantity(rset.getInt("quantity"));
@@ -114,7 +114,7 @@ public class PizzaMenuRepository {
         return result;
     }
 
-    public int increaseQuantity(Connection con, String pizzaName, int amount) {
+    public int increaseQuantity(Connection con, int pizzaId, int amount) {
         PreparedStatement pstmt = null;
         int result = 0;
 
@@ -123,14 +123,14 @@ public class PizzaMenuRepository {
         try {
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, amount);
-            pstmt.setString(2, pizzaName);
+            pstmt.setInt(2, pizzaId);
 
             result = pstmt.executeUpdate();
 
             if (result == 0) {
-                System.out.println("⚠️ 수량을 증가시킬 피자를 찾을 수 없습니다: " + pizzaName);
+                System.out.println("⚠️ 수량을 증가시킬 피자를 찾을 수 없습니다.");
             } else {
-                System.out.println("✅ 수량이 성공적으로 증가되었습니다: " + pizzaName + " (+ " + amount + ")");
+                System.out.println("✅ 수량이 성공적으로 증가되었습니다.");
             }
 
         } catch (SQLException e) {
@@ -142,7 +142,7 @@ public class PizzaMenuRepository {
         return result;
     }
 
-    public int decreaseQuantity(Connection con, String pizzaName, int amount) {
+    public int decreaseQuantity(Connection con, int pizzaId, int amount) {
         PreparedStatement pstmt = null;
         int result = 0;
         String sql = prop.getProperty("decreaseQuantity");
@@ -150,14 +150,14 @@ public class PizzaMenuRepository {
         try {
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, amount);
-            pstmt.setString(2, pizzaName);
+            pstmt.setInt(2, pizzaId);
 
             result = pstmt.executeUpdate();
 
             if (result == 0) {
-                System.out.println("⚠️ 수량을 감소시킬 피자를 찾을 수 없습니다: " + pizzaName);
+                System.out.println("⚠️ 수량을 감소시킬 피자를 찾을 수 없습니다.");
             } else {
-                System.out.println("✅ 수량이 성공적으로 감소되었습니다: " + pizzaName + " (- " + amount + ")");
+                System.out.println("✅ 수량이 성공적으로 감소되었습니다");
             }
         } catch (SQLException e) {
             System.out.println("⚠️ 피자 수량 감소 쿼리 실행 실패: " + e.getMessage());
@@ -168,45 +168,44 @@ public class PizzaMenuRepository {
         return result;
     }
 
-    public int deletePizza(Connection con, int pizzaId, String pizzaName) {
-
+    public int deletePizza(Connection con, String pizzaName) {
         PreparedStatement pstmt1 = null;
         PreparedStatement pstmt2 = null;
 
-        ResultSet rset = null;
         int result1 = 0;
         int result2 = 0;
 
+        // 1. pizzaName으로 pizzaId 조회
+        int pizzaId = selectDeletePizzaId(con, pizzaName);
+        if (pizzaId == -1) {
+            System.out.println("❗ 해당 피자 이름을 찾을 수 없습니다.");
+            return 0;
+        }
+
         String sql1 = "DELETE FROM tbl_size WHERE pizzaId = ?";
-        String sql2 = "DELETE FROM tbl_pizza WHERE pizzaName = ?";
+        String sql2 = "DELETE FROM tbl_pizza WHERE pizzaId = ?";
 
         try {
+            // 2. 자식 테이블 삭제
+            pstmt1 = con.prepareStatement(sql1);
+            pstmt1.setInt(1, pizzaId);
+            result1 = pstmt1.executeUpdate();
 
+            // 3. 부모 테이블 삭제
             pstmt2 = con.prepareStatement(sql2);
-            pstmt2.setString(1, pizzaName);
+            pstmt2.setInt(1, pizzaId);
             result2 = pstmt2.executeUpdate();
-
-            if (result2 > 0) {
-                pstmt1 = con.prepareStatement(sql1);
-                pstmt1.setInt(1, pizzaId);
-                result1 = pstmt1.executeUpdate();
-
-            }
-
-
-
 
         } catch (SQLException e) {
             System.out.println("⚠️ 피자 품절 처리 쿼리 실행 실패: " + e.getMessage());
         } finally {
-            close(rset);
             close(pstmt1);
             close(pstmt2);
         }
 
         return result1 > 0 && result2 > 0 ? 1 : 0;
-
     }
+
 
     public int selectDeletePizzaId(Connection con, String pizzaName) {
 
