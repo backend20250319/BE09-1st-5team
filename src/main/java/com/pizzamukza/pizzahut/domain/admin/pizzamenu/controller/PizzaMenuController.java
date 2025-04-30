@@ -25,12 +25,12 @@ public class PizzaMenuController {
         }
     }
 
-    public void increaseQuantity(String pizzaName, int amount) {
-        service.increaseQuantity(pizzaName, amount);
+    public void increaseQuantity(int pizzaId, int amount) {
+        service.increaseQuantity(pizzaId, amount);
     }
 
-    public static void decreaseQuantity(String pizzaName, int amount) {
-        service.decreaseQuantity(pizzaName, amount);
+    public static void decreaseQuantity(int pizzaId, int amount) {
+        service.decreaseQuantity(pizzaId, amount);
     }
 
     public void deletePizza(String pizzaName) {

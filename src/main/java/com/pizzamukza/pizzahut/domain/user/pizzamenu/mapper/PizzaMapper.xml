@@ -104,7 +104,7 @@
     s.sizeId,
     s.sizeName,
     s.price,
-    p.quantity
+    s.quantity
     FROM tbl_pizza p
     JOIN tbl_size s ON p.pizzaId = s.pizzaId
     WHERE s.sizeId = ?
