@@ -62,7 +62,7 @@ public class SignUpView {
                     break;
                 case "0":
                     logout();
-                    return; // 종료
+                    break;
                 default:
                     System.out.println("잘못된 입력입니다. 다시 선택해주세요.");
             }
@@ -125,7 +125,7 @@ public class SignUpView {
             UserInfo.info = null;
             displayUserStartMenu();
         } else {
-            System.out.println();
+            AdminMainView.main(new String[0]);
         }
     }
 
