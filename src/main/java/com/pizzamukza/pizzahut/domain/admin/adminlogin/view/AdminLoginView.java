@@ -58,6 +58,8 @@ public class AdminLoginView {
                 pizzaMenuMainView();
             case 2:
                 printSideMenuStart();
+            case 0:
+                AdminMainView.main(new String[0]);
         }
 
     }
