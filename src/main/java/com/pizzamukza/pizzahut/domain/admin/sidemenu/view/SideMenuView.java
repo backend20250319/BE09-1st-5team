@@ -1,6 +1,7 @@
 package com.pizzamukza.pizzahut.domain.admin.sidemenu.view;
 
 import com.pizzamukza.common.CommonMenuView;
+import com.pizzamukza.pizzahut.domain.admin.adminlogin.view.AdminLoginView;
 import com.pizzamukza.pizzahut.domain.admin.sidemenu.controller.SideMenuController;
 import com.pizzamukza.pizzahut.domain.admin.sidemenu.dto.SideMenuDTO;
 import com.pizzamukza.pizzahut.domain.admin.sidemenu.repository.SideMenuRepository;
@@ -77,7 +78,8 @@ public class SideMenuView {
                     break;
                 case 6 : printSideMenuUpdate();
                     break;
-                case 0 : adminMainView.main(new String[0]);
+                case 0 :
+                    AdminLoginView.adminMenu();
                     break;
                 default :
                     System.out.println("번호를 잘못 입력하셨습니다.");
@@ -133,7 +135,7 @@ public class SideMenuView {
     }
 
     /* 사이드 수량 감소 */
-    private static void decreaseQuantityView() {
+    public static void decreaseQuantityView() {
         sc.nextLine();
 
         System.out.print("📦 수량을 감소시킬 사이드 메뉴 이름: ");

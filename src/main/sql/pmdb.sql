@@ -39,7 +39,8 @@ CREATE TABLE tbl_size (
                           sizeId INT PRIMARY KEY AUTO_INCREMENT COMMENT '사이즈번호',
                           sizeName VARCHAR(50) COMMENT '사이즈명',
                           price INT DEFAULT 0 COMMENT '가격',
-                          pizzaId INT NOT NULL COMMENT '파자번호',
+                          pizzaId INT NOT NULL COMMENT '피자번호',
+                          quantity INT COMMENT '피자수량',
                           FOREIGN KEY (pizzaId) REFERENCES tbl_pizza(pizzaId)
 ) COMMENT='사이즈';
 

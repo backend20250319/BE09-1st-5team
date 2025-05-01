@@ -33,7 +33,7 @@
     s.sizeId,
     s.sizeName,
     s.price,
-    p.quantity
+    s.quantity
     FROM tbl_pizza p
     JOIN tbl_size s ON p.pizzaId = s.pizzaId
   </entry>
@@ -71,13 +71,43 @@
     WHERE sizeName = ?
   </entry>
 
-  <!--
-    1. 페퍼로니피자 미디움, 2. 페퍼로니 피자 라지 가 있을때, 1,2 모두 삭제시
-    tbl_pizza에서 페퍼로니피자 카테고리 안지워지는 에러처리 필요
-    만약 tbl_pizza의 pizzaId의 삭제 옵션을 CASCADE로 해도,
-    1만 삭제 시(페퍼로지 피자 라지는 아직 남아있음) tbl_pizza에서 페퍼로니피자 카테고리 삭제되는 문제 필요
-    -> 흐린눈 하거나(tbl_pizza에는 삭제 반영X),,
-    화면단에서 피자 삭제(단종)시 tbl_size에 해당 피자 이름 있는지 확인 필요(복잡,,,)
-  -->
+  <!-- 피자 수량 감소(sizeId, int quantity) -->
+  <entry key="dicreasePizzaQuantityBySizeId">
+    UPDATE tbl_size
+    SET quantity = quantity - ?
+    WHERE sizeId = ?
+  </entry>
+
+  <!-- 피자 아이디로 수량 조회 -->
+  <entry key="selectPizzaQuantityBySizeId">
+    SELECT
+    s.quantity
+    FROM tbl_size s
+    JOIN tbl_pizza p ON s.pizzaId = p.pizzaId
+    WHERE s.sizeId = ?
+  </entry>
+
+  <!-- 피자 아이디로 가격 조회 -->
+  <entry key="selectPizzaPriceyBySizeId">
+    SELECT
+    s.price
+    FROM tbl_size s
+    JOIN tbl_pizza p ON s.pizzaId = p.pizzaId
+    WHERE s.sizeId = ?
+  </entry>
+
+  <!-- sideId로 피자 정보 조회 -->
+  <entry key="selectPizzaDetailsById">
+    SELECT
+    p.pizzaId,
+    p.pizzaName,
+    s.sizeId,
+    s.sizeName,
+    s.price,
+    s.quantity
+    FROM tbl_pizza p
+    JOIN tbl_size s ON p.pizzaId = s.pizzaId
+    WHERE s.sizeId = ?
+  </entry>
 
 </properties>

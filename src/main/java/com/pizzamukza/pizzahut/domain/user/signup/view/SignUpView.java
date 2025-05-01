@@ -2,6 +2,9 @@ package com.pizzamukza.pizzahut.domain.user.signup.view;
 
 import com.pizzamukza.common.CommonMenuView;
 import com.pizzamukza.common.UserInfo;
+import com.pizzamukza.pizzahut.domain.main.AdminMainView;
+import com.pizzamukza.pizzahut.domain.user.login.dto.Login;
+import com.pizzamukza.pizzahut.domain.user.pizzamenu.controller.OrderController;
 import com.pizzamukza.pizzahut.domain.user.signup.controller.SignUpController;
 import com.pizzamukza.pizzahut.domain.user.signup.dto.SignUpDTO;
 
@@ -13,37 +16,37 @@ import static com.pizzamukza.common.CommonMenuView.username;
 
 public class SignUpView {
     private static SignUpController controller = new SignUpController();
+    static OrderController orderController = new OrderController();
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
         MainMenu(); //메인으로 하면 이전화면으로 돌아감
-    //    new SignUpView().MainMenu();
-      //  new SignUpView().displayUserStartMenu();
+        //    new SignUpView().MainMenu();
+        //  new SignUpView().displayUserStartMenu();
         //new SignUpView().displayUserMenu();
 
     }
-public static void MainMenu() {
+
+    public static void MainMenu() {
         while (true) {
             CommonMenuView.printMainMenu();
             String choice = sc.nextLine();
 
-                switch (choice) {
-                    case "1":
+            switch (choice) {
+                case "1":
 
-                        break;
-                    case "2":
-                        displayUserStartMenu();
-                        break;
-                    case "0":
-                        logout();//바꿔야함
-                        return; // 종료
-                    default:
-                        System.out.println("잘못된 입력입니다. 다시 선택해주세요.");
-                }
+                    break;
+                case "2":
+                    displayUserStartMenu();
+                    break;
+                case "0":
+                    logout();//바꿔야함
+                    return; // 종료
+                default:
+                    System.out.println("잘못된 입력입니다. 다시 선택해주세요.");
             }
         }
-
-
+    }
 
     public static void displayUserStartMenu() {
         while (true) {
@@ -59,13 +62,12 @@ public static void MainMenu() {
                     break;
                 case "0":
                     logout();
-                    return; // 종료
+                    break;
                 default:
                     System.out.println("잘못된 입력입니다. 다시 선택해주세요.");
             }
         }
     }
-
 
     private static void registerUser() {
         String username = "";
@@ -83,13 +85,13 @@ public static void MainMenu() {
                 System.out.print("이름를 입력하세요: ");
                 name = sc.nextLine();
                 controller.register(username, pw, name);
-            System.out.println("✅회원가입이 완료 되었습니다.");
-            System.out.println("로그인 화면으로 돌아갑니다...");
-            loginUser();
+                System.out.println("✅회원가입이 완료 되었습니다.");
+                System.out.println("로그인 화면으로 돌아갑니다...");
+                loginUser();
                 break;
             } else if (who == 'N') {
                 System.out.println("아쉽네요");
-            System.out.print("이전 화면으로 돌아갑니다...");
+                System.out.print("이전 화면으로 돌아갑니다...");
                 break;
             } else {
                 System.out.println("장난치지 마세요");
@@ -121,19 +123,20 @@ public static void MainMenu() {
         if (UserInfo.info != null) {
             System.out.println(UserInfo.info.getName() + " 님 ✅ 로그아웃 되었습니다. 메인 메뉴로 돌아갑니다.");
             UserInfo.info = null;
-            CommonMenuView.printUserMenu();// 이전상태로 이동
+            displayUserStartMenu();
         } else {
-            System.out.println();
+            AdminMainView.main(new String[0]);
         }
     }
 
-    private static void displayUserMenu() {
+    public static void displayUserMenu() {
         while (true) {
             System.out.print(CommonMenuView.USER_MENU);
             String choice = sc.nextLine();
             switch (choice) {
                 case "1":
-
+                    orderController.startOrderMenu();
+                    // TODO : 주문하기 메서드 추가 예정
                     break;
                 case "2":
                     edit();
@@ -157,10 +160,12 @@ public static void MainMenu() {
             char edit = sc.next().charAt(0);
             sc.nextLine();
             if (edit == 'Y') {
+                String username = UserInfo.info.getUsername();
                 System.out.print("새 비밀번호: ");
                 String newPw = sc.nextLine();
                 System.out.println(username + "님의 비밀번호가 새롭게 설정 되었습니다.");
                 controller.changePassword(username, newPw);
+                displayUserStartMenu();
                 break;
             } else if (edit == 'N') {
                 System.out.println("이전 화면으로 이동합니다.");
@@ -172,9 +177,7 @@ public static void MainMenu() {
         }
     }
 
-
-
-private static void deleteUser() {
+    private static void deleteUser() {
         System.out.println("===== 회원 탈퇴 =====");
         System.out.println("현재 회원 목록:");
         List<SignUpDTO> users = SignUpView.controller.getAllUsers();
