@@ -1,6 +1,7 @@
 package com.pizzamukza.pizzahut.domain.admin.pizzamenu.view;
 
 import com.pizzamukza.common.CommonMenuView;
+import com.pizzamukza.pizzahut.domain.admin.adminlogin.view.AdminLoginView;
 import com.pizzamukza.pizzahut.domain.admin.pizzamenu.controller.PizzaMenuController;
 import com.pizzamukza.pizzahut.domain.admin.pizzamenu.dto.PizzaDTO;
 import com.pizzamukza.pizzahut.domain.admin.pizzamenu.dto.PizzaMenuDTO;
@@ -13,7 +14,6 @@ import java.util.Scanner;
 public class PizzaMenuView {
     static Scanner sc = new Scanner(System.in);
     static PizzaMenuController pmc = new PizzaMenuController();
-    static AdminMainView adminMainView = new AdminMainView();
 
     public static void pizzaMenuMainView() {
         String adminPizzaMenu = """
@@ -50,7 +50,7 @@ public class PizzaMenuView {
                     deletePizzaView();
                     break;
                 case 0:
-                    adminMainView.main(new String[0]);
+                    AdminLoginView.adminMenu();
                 default:
                     System.out.println("❌ 올바른 번호를 입력해주세요.");
             }
@@ -70,7 +70,7 @@ public class PizzaMenuView {
             SizeDTO size = pizza.getSizeDTO();  // SizeDTO 가져오기
             System.out.printf("%-8d %-20s %-10s %,12d원 %6d개\n",
                     size.getPizzaId(),               // 피자 ID
-                    pizza.getPizzaName(),            // 피자 이름
+                    "🍕 " + pizza.getPizzaName(),    // 피자 이름
                     size.getSizeName(),              // 사이즈
                     size.getPrice(),                 // 가격
                     size.getQuantity());             // 수량
@@ -78,7 +78,6 @@ public class PizzaMenuView {
 
         System.out.println("=".repeat(72));
     }
-
 
 
     private static void addNewPizzaView() {
